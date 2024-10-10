@@ -9,17 +9,17 @@ const data = [
   },
   {
     title: "Adoptions",
-    stats: "2,175",
+    stats: "360+",
     description: "13% less compared to last month, new user engagement up by 6%",
   },
   {
     title: "Vaccinations",
-    stats: "1,994",
+    stats: "1700+",
     description: "1994 orders were completed this month, 97% satisfaction rate",
   },
   {
-    title: "Sterilizations",
-    stats: "1,994",
+    title: "Sterilisations",
+    stats: "1500+",
     description: "1994 orders were completed this month, 97% satisfaction rate",
   },
 ];
@@ -30,7 +30,7 @@ export function StatsGroup() {
       <Text c={"blue.4"} className={classes.count}>
         {stat.stats}
       </Text>
-      <Text c={"blue.4"} className={classes.title} size="lg">
+      <Text c={"blue.4"} className={classes.title}>
         {stat.title}
       </Text>
       {/* <Text className={classes.description}>{stat.description}</Text> */}

@@ -24,23 +24,23 @@ export function Header() {
 
   return (
     <header style={{ height: "1em", position: "absolute", top: 0, left: 0, width: "100%", background: "white", zIndex: 50 }}>
-      <Box bg={"rgba(0,0,0,0)"} py={"1em"}>
-        <Container size="md">
-          <Group justify="space-between">
-            <Group gap={"lg"}>
-              <Burger hiddenFrom="xs" opened={opened} onClick={toggle} size="md" color="white" />
-              <Group gap={"lg"} visibleFrom="xs">
-                {items}
-              </Group>
-              <Button color="blue.6" variant="filled">
-                Donate
-              </Button>
+      <Box bg={"rgba(0,0,0,0)"} p={"1em"}>
+        {/* <Container size="md"> */}
+        <Group justify="space-between">
+          <Group gap={"lg"}>
+            <Burger hiddenFrom="xs" opened={opened} onClick={toggle} size="md" color="white" />
+            <Group gap={"lg"} visibleFrom="xs">
+              {items}
             </Group>
-            <Box px={"sm"} py={0} bg={"white"} w={"min-content"} style={{ borderRadius: "0 0 10px 10px" }}>
-              <Image src={Logo} alt="Logo" height={60} width={108} />
-            </Box>
+            <Button color="blue.6" variant="filled">
+              Donate
+            </Button>
           </Group>
-        </Container>
+          <Box px={"sm"} py={0} bg={"white"} w={"min-content"} style={{ borderRadius: "0 0 10px 10px" }}>
+            <Image src={Logo} alt="Logo" height={60} width={108} />
+          </Box>
+        </Group>
+        {/* </Container> */}
       </Box>
     </header>
   );

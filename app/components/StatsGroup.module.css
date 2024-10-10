@@ -13,7 +13,7 @@
   color: var(--mantine-color-white);
   text-transform: uppercase;
   font-weight: 700;
-  font-size: var(--mantine-font-size-md);
+  font-size: var(--mantine-font-size-xl);
 }
 
 .count {
