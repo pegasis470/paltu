@@ -23,8 +23,8 @@ export function Header() {
   ));
 
   return (
-    <header style={{ height: "1em", position: "absolute", top: 0, left: 0, width: "100%", background: "white", zIndex: 50 }}>
-      <Box bg={"rgba(0,0,0,0)"} p={"1em"}>
+    <header style={{ height: "0", position: "absolute", top: 0, left: 0, width: "100%", background: "black", zIndex: 50 }}>
+      <Box bg={"rgba(0,0,0,0)"} p={"0.5em"}>
         {/* <Container size="md"> */}
         <Group justify="space-between">
           <Group gap={"lg"}>
