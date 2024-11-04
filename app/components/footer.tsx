@@ -4,7 +4,7 @@ import Image from "next/image";
 export function Footer() {
 return (
     <Box w={"100%"} h={"80vh"} pos={"relative"}>
-    <Box w={"100%"} h={"100%"} pos={"relative"} zIndex={1}>
+    <Box w={"100%"} h={"100%"} pos={"relative"} >
     <Image
       src={"/images/footer.png"}
       alt={""}
