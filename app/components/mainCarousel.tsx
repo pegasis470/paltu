@@ -20,7 +20,7 @@ const slides = [
     size="lg"
     variant="filled"
     color="#a2bd42"
-    >
+    > 
       Click here for details
     </Button> 
   },
