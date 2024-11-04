@@ -17,7 +17,7 @@ return (
   </Box>
 
   {/* Title container */}
-  <Box w={"100%"} h={"10%"} pos={"relative"} bg="#fff500" zIndex={2}>
+  <Box w={"100%"} h={"10%"} pos={"relative"} bg="#fff500">
     <Stack h={"40%"} gap={"1em"} align={"center"} justify={"center"} px={"xl"}>
       <Title order={1} size={"2rem"} c={"black"} fs={"italic"}>
         IT'S TIME TO QUESTION - "ARE YOU A HOOOMAN"?
