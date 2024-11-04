@@ -1,5 +1,6 @@
 import { Avatar, Box, Card, Container, Divider, Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { Header } from "@/app/components/header";
+import {Footer} from "@/app/components/footer";
 import Image from "next/image";
 import { Carousel, CarouselSlide } from "@mantine/carousel";
 
@@ -28,7 +29,7 @@ export default function AboutUs() {
                   <Title c={"white"} fz={{ base: "3rem", md: "4rem" }}>
                     Who are
                   </Title>
-                  <Title c={"yellow.3"} fz={{ base: "3rem", md: "6rem" }} mt={"-1rem"}>
+                  <Title c={"#fff500"} fz={{ base: "3rem", md: "6rem" }} mt={"-1rem"}>
                     We
                   </Title>
                 </Box>
@@ -36,7 +37,7 @@ export default function AboutUs() {
                   Team Animals With Humanity is a registered Non-governmental organization dedicated to rescuing, fostering, and rehoming the abandoned, sick, and injured animals around us. We also
                   take care of their necessities like food, vaccination, sterilization and aware people about it. Alongside this, we take necessary stand for cruelty against voiceless souls.
                 </Text>
-                <Card bg={"yellow.3"} radius={"lg"} mt={"xl"}>
+                <Card bg={"#fff500"} radius={"lg"} mt={"xl"}>
                   <Title c={"blue.5"} fz={{ base: "1.5rem", sm: "2rem" }} mb={"0.25em"}>
                     Our Mission
                   </Title>
@@ -73,7 +74,7 @@ export default function AboutUs() {
               </Card>
 
               <Stack w={"100%"}>
-                <Card w={"100%"} bg={"yellow.3"} radius={"lg"} p={"lg"} style={{ cursor: "pointer" }}>
+                <Card w={"100%"} bg={"#fff500"} radius={"lg"} p={"lg"} style={{ cursor: "pointer" }}>
                   <Flex align={"center"} justify={"space-evenly"} wrap={"wrap"} gap={"lg"}>
                     <Stack gap={"md"} justify="center" align="center">
                       <Avatar size={"140px"} alt="Team Member" />
@@ -92,7 +93,7 @@ export default function AboutUs() {
                     </Text>
                   </Flex>
                 </Card>
-                <Card w={"100%"} bg={"yellow.3"} radius={"lg"} p={"sm"} style={{ cursor: "pointer" }}>
+                <Card w={"100%"} bg={"#fff500"} radius={"lg"} p={"sm"} style={{ cursor: "pointer" }}>
                   <Flex align={"center"} justify={"space-evenly"} wrap={"wrap"} gap={"md"}>
                     <Stack gap={"md"} justify="center" align="center">
                       <Avatar size={"140px"} alt="Team Member" />
@@ -115,6 +116,7 @@ export default function AboutUs() {
             </Stack>
           </Container>
         </Box>
+        <Footer />
       </Stack>
     </>
   );

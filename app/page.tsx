@@ -1,5 +1,6 @@
 import { Box, Container, Flex, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { Header } from "./components/header";
+import {Footer} from "./components/footer"
 import { MainCarousel } from "./components/mainCarousel";
 import { StatsGroup } from "./components/stats";
 import WorkCards from "./components/workCardItem";
@@ -52,8 +53,7 @@ export default function Home() {
           </Box>
         </Box>
         <Box w={"100%"} h={"100vh"} pos={"relative"}>
-          <Box w={"100%"} h={"100%"} pos={"absolute"} bg="yellow.4" style={{ zIndex: -2 }}></Box>
-          <Box w={"100%"} h={"80%"} pos={"absolute"} top={0} left={0} style={{ zIndex: -1, borderRadius: "0 0 200px 0" }}>
+          <Box w={"100%"} h={"100%"} pos={"absolute"} top={0} left={0} style={{ zIndex: -1, borderRadius: "0 0 200px 0" }}>
             <Image
               src={"/images/team-2.jpg"}
               alt="Background"
@@ -74,12 +74,9 @@ export default function Home() {
               Reasons to join us are many, but the most important one is to make a difference in the lives of animals. We are a team of passionate individuals who are dedicated to the welfare of
             </Text>
           </Flex>
-          <Stack h={"20vh"} gap={"1em"} align={"center"} justify={"center"} px={"xl"}>
-            <Title order={1} size={"2rem"} c={"black"} fs={"italic"}>
-              IT'S TIME TO QUESTION - "ARE YOU A HOOOMAN"?
-            </Title>
-          </Stack>
-        </Box>
+          </Box>
+  {/* Footer image container */}
+  <Footer />
       </Stack>
     </>
   );
