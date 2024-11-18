@@ -5,10 +5,21 @@ import '/public/css/paltu.css';
 export default function AdoptAnimalPage() {
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [availableAnimals, setAvailableAnimals] = useState([]);
-    const [animalDetails, setAnimalDetails] = useState(null);
+    const [availableAnimals, setAvailableAnimals] =  useState<Animal[]>([]);
+    const [animalDetails, setAnimalDetails] = useState<Animal>({
+        avaliable: false,
+        photos: "",
+        tag_id: 0,
+        animal_type: ""
+      });
     const [detailsfound,setDetailsFound]=useState(false);
     // Fetch all animals
+    interface Animal{
+        avaliable: boolean;
+        photos: string;
+        tag_id: number;
+        animal_type: string;
+    }
     useEffect(() => {
             const fetchAnimals = async () => {
                 setLoading(true);
@@ -18,7 +29,7 @@ export default function AdoptAnimalPage() {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     const data = await response.json();
-                    const filteredAnimals = data.filter(animal => animal.avaliable);
+                    const filteredAnimals = data.filter((animal: Animal) => animal.avaliable);
                     setAvailableAnimals(filteredAnimals);
                 } catch (error) {
                     console.error('Error fetching animals:', error);
@@ -37,7 +48,7 @@ export default function AdoptAnimalPage() {
             }
         }, [animalDetails]);
         // Fetch animal details by ID
-        const fetchAnimalsByID = async (tag_id) => {
+        const fetchAnimalsByID = async (tag_id: number) => {
             try {
                 const response = await fetch(`https://adoption-management.vercel.app/animals/animals/${tag_id}`);
                 if (!response.ok) {
@@ -109,7 +120,6 @@ export default function AdoptAnimalPage() {
                     <h2>Tag ID: {animalDetails.tag_id}</h2>
                     <img
                         src={`./images/photos/${animalDetails.photos}`}
-                        alt={animalDetails.tag_id}
                         width="800px"
                         style={{ borderRadius: '10px' }}
                     />
@@ -118,7 +128,7 @@ export default function AdoptAnimalPage() {
                     </div>
 
                 )}
-                
+
             </div>
         );
     };
