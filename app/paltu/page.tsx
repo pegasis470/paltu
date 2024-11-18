@@ -40,13 +40,6 @@ export default function AdoptAnimalPage() {
             fetchAnimals();
         }, []);
 
-        useEffect(() => {
-            if (animalDetails) {
-                setDetailsFound(true);
-            } else {
-                setDetailsFound(false);
-            }
-        }, [animalDetails]);
         // Fetch animal details by ID
         const fetchAnimalsByID = async (tag_id: number) => {
             try {
@@ -56,6 +49,7 @@ export default function AdoptAnimalPage() {
                 }
                 const data = await response.json();
                 setAnimalDetails(data);
+                setDetailsFound(true);
             } catch (error) {
                 console.error('Error fetching animal details:', error);
             }
