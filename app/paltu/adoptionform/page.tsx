@@ -29,32 +29,32 @@ const AdoptionForm = () => {
       setAdopterDoc(files[0]);
     }
   };
-
+  
   // Handle form submission
   const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     const queryParams = new URLSearchParams(window.location.search);
     const tagId = queryParams.get("tag_id") || null;
-
+    
     const formPayload = new FormData();
-    formPayload.append("tag_id", parseInt(tagId, 10));
+    formPayload.append("tag_id", String(tagId) );
     formPayload.append("name", formData.name);
     formPayload.append("contact", formData.contact);
     formPayload.append("whatsapp", formData.whatsapp);
     formPayload.append("address", formData.address);
     formPayload.append("occupation", formData.occupation);
-    formPayload.append("pets", formData.pets === "true");
+    formPayload.append("pets", String(formData.pets === "true"));
     formPayload.append("hometype", formData.hometype);
     if (adopterImage) formPayload.append("adopter_image", adopterImage);
     if (adopterDoc) formPayload.append("adopter_doc", adopterDoc);
-
+    
     try {
       const response = await fetch("http://127.0.0.1:8000/applications/applications/", {
         method: "POST",
         body: formPayload,
       });
-
+      
       if (response.ok) {
         alert("Form submitted successfully!");
         window.location.href = "/paltu";
@@ -67,7 +67,58 @@ const AdoptionForm = () => {
       alert("An error occurred while submitting the form.");
     }
   };
-
+  
+  const styles = {
+    body: {
+      fontFamily: "Arial, sans-serif",
+      color: "#5f4230",
+      margin: 0,
+      padding: 0,
+      display: "flex",
+      flexDirection: "column" as "column",
+      alignItems: "center",
+      backgroundColor: "#fff9f2",
+    },
+    imgRight: {
+      marginLeft: "70%",
+      width: "30%",
+      height: "8vh",
+    },
+    formContainer: {
+      marginBottom: "1vh",
+      background: "#f69001",
+      padding: "50px",
+      borderRadius: "10px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+      width: "90%",
+      maxWidth: "400px",
+    },
+    label: {
+      display: "block",
+      marginBottom: "8px",
+      fontWeight: "bold",
+      color: "#ffffff",
+    },
+    input: {
+      width: "100%",
+      padding: "10px",
+      marginBottom: "15px",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      fontSize: "16px",
+    },
+    button: {
+      width: "100%",
+      padding: "10px",
+      border: "none",
+      backgroundColor: "#fff505",
+      color: "rgb(0, 0, 0)",
+      borderRadius: "100px",
+      fontSize: "16px",
+      fontWeight: "bold",
+      cursor: "pointer",
+    },
+  };
   return (
     <div style={styles.body}>
       <img style={styles.imgRight} src="/top-right.png" alt="" />
@@ -206,56 +257,5 @@ const AdoptionForm = () => {
   );
 };
 
-const styles = {
-  body: {
-    fontFamily: "Arial, sans-serif",
-    color: "#5f4230",
-    margin: 0,
-    padding: 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "#fff9f2",
-  },
-  imgRight: {
-    marginLeft: "70%",
-    width: "30%",
-    height: "8vh",
-  },
-  formContainer: {
-    marginBottom: "1vh",
-    background: "#f69001",
-    padding: "50px",
-    borderRadius: "10px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    width: "90%",
-    maxWidth: "400px",
-  },
-  label: {
-    display: "block",
-    marginBottom: "8px",
-    fontWeight: "bold",
-    color: "#ffffff",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    marginBottom: "15px",
-    border: "1px solid #ccc",
-    borderRadius: "5px",
-    fontSize: "16px",
-  },
-  button: {
-    width: "100%",
-    padding: "10px",
-    border: "none",
-    backgroundColor: "#fff505",
-    color: "rgb(0, 0, 0)",
-    borderRadius: "100px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    cursor: "pointer",
-  },
-};
 
 export default AdoptionForm;
