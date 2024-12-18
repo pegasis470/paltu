@@ -90,7 +90,7 @@ export default function AdoptAnimalPage() {
                                     <div
                                         className="carousel-slide"
                                         style={{
-                                            backgroundImage: `url('./images/photos/${availableAnimals[currentIndex]?.photos}')`,
+                                            backgroundImage: `url('${availableAnimals[currentIndex]?.photos}')`,
                                         }}
                                     >
                                         <div className="carousel-overlay">
@@ -98,8 +98,7 @@ export default function AdoptAnimalPage() {
                                             <p>Type: {availableAnimals[currentIndex]?.animal_type}</p>
                                             <button
                                                 className="adopt-button"
-                                                onClick={() => fetchAnimalsByID(availableAnimals[currentIndex]?.tag_id)}
-                                            >
+                                                onClick={() => window.location.href = `/paltu/adoptionform?tag_id=${availableAnimals[currentIndex]?.tag_id}`} >
                                                 Adopt Now
                                             </button>
                                         </div>
@@ -113,7 +112,7 @@ export default function AdoptAnimalPage() {
                 <div id="animal-details" style={{ zIndex: "99",marginTop: 850, textAlign: 'center', position: 'relative'}}>
                     <h2>Tag ID: {animalDetails.tag_id}</h2>
                     <img
-                        src={`./images/photos/${animalDetails.photos}`}
+                        src={`${animalDetails.photos}`}
                         width="800px"
                         style={{ borderRadius: '10px' }}
                     />
