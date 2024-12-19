@@ -7,6 +7,13 @@ export default function AdoptAnimalPage() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [availableAnimals, setAvailableAnimals] =  useState<Animal[]>([]);
     const [animalDetails, setAnimalDetails] = useState<Animal>({
+        age: "",
+        type: "",
+        gender: "",
+        fitness: true,
+        sterilisation: true,
+        vaccination:true,
+        caretaker:"",
         avaliable: false,
         photos: "",
         tag_id: 0,
@@ -15,6 +22,13 @@ export default function AdoptAnimalPage() {
     const [detailsfound,setDetailsFound]=useState(false);
     // Fetch all animals
     interface Animal{
+        age: string;
+        type: string;
+        gender: string;
+        fitness: boolean;
+        sterilisation:boolean;
+        vaccination:boolean;
+        caretaker:string;
         avaliable: boolean;
         photos: string;
         tag_id: number;
