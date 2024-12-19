@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 
 const AdoptionForm = () => {
+  const[id,setid]=useState();
+  const[showmsg,setmsg]=useState("none");
+  const[hideform,setform]=useState("block");
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -56,8 +59,10 @@ const AdoptionForm = () => {
       });
       
       if (response.ok) {
-        alert("Form submitted successfully!");
-        window.location.href = "/paltu";
+        const data= await response.json();
+        setid(data.application_id);
+        setmsg("block");
+        setform("none");
       } else {
         const errorResponse = await response.json();
         alert(`Failed to submit form: ${errorResponse.detail}`);
@@ -79,6 +84,15 @@ const AdoptionForm = () => {
       alignItems: "center",
       backgroundColor: "#fff9f2",
     },
+    alert:{
+      display: showmsg,
+      color:"#fff9f2",
+      backgroundColor:"#5f4230",
+      margin:"10px",
+      padding:"20px",
+      borderRadius: "10px"
+
+    },
     imgRight: {
       marginLeft: "70%",
       width: "30%",
@@ -92,6 +106,7 @@ const AdoptionForm = () => {
       boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
       width: "90%",
       maxWidth: "400px",
+      display: hideform
     },
     label: {
       display: "block",
@@ -123,6 +138,12 @@ const AdoptionForm = () => {
     <div style={styles.body}>
       <img style={styles.imgRight} src="/top-right.png" alt="" />
       <h1>Adoption Form</h1>
+      <div style={styles.alert}>
+      <h1>Form submitted successfully!</h1>
+      <h2>Your form ID is {id}</h2>
+      <p>NOTE: please note your application id from tracking prepouses it will not be displayed agian</p>
+      <a href="/paltu">CONTINUE...</a>
+      </div>
       <div style={styles.formContainer}>
         <form onSubmit={handleSubmit}>
           <label style={styles.label}>Please enter the following details -</label>

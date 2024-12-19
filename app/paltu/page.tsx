@@ -24,7 +24,7 @@ export default function AdoptAnimalPage() {
             const fetchAnimals = async () => {
                 setLoading(true);
                 try {
-                    const response = await fetch('https://adoption-backed.vercel.app/animals/animals/');
+                    const response = await fetch('http://127.0.0.1:8000/animals/animals/');
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
@@ -64,7 +64,6 @@ export default function AdoptAnimalPage() {
         const prevSlide = () => {
             setCurrentIndex((prevIndex) => (prevIndex - 1 + availableAnimals.length) % availableAnimals.length);
         };
-
         return (
             <div>
                 {loading && (
@@ -97,9 +96,12 @@ export default function AdoptAnimalPage() {
                                             <h2>Tag ID: {availableAnimals[currentIndex]?.tag_id}</h2>
                                             <p>Type: {availableAnimals[currentIndex]?.animal_type}</p>
                                             <button
-                                                className="adopt-button"
-                                                onClick={() => window.location.href = `/paltu/adoptionform?tag_id=${availableAnimals[currentIndex]?.tag_id}`} >
-                                                Adopt Now
+                                                className="details-button"
+                                                onClick={() =>
+                                                    fetchAnimalsByID(availableAnimals[currentIndex]?.tag_id)
+                                                }
+                                            >
+                                                Get Details
                                             </button>
                                         </div>
                                     </div>
@@ -109,19 +111,34 @@ export default function AdoptAnimalPage() {
                             <p>No available animals at the moment.</p>
                         )}
                         {detailsfound && (
-                <div id="animal-details" style={{ zIndex: "99",marginTop: 850, textAlign: 'center', position: 'relative'}}>
-                    <h2>Tag ID: {animalDetails.tag_id}</h2>
-                    <img
-                        src={`${animalDetails.photos}`}
-                        width="800px"
-                        style={{ borderRadius: '10px' }}
-                    />
+                            <><div className="animal-details-container">
+                                <img
+                                    src={`${animalDetails.photos}`}
+                                    alt="Animal"
+                                    className="animal-image"
+                                />
+                                <div className="animal-overlay">
+                                    <h2>Tag ID: {animalDetails.tag_id}</h2>
+                                    <p>Age: {animalDetails.age}</p>
+                                    <p>Type: {animalDetails.type}</p>
+                                    <p>Gender: {animalDetails.gender}</p>
+                                    <p>Fitness: {animalDetails.fitness}</p>
+                                    <p>sterilisation: {animalDetails.sterilisation ? "yes" : "no"}</p>
+                                    <p>vaccination: {animalDetails.vaccination ? "yes": "no"}</p>
+                                    <p>caretaker: {animalDetails.caretaker}</p>
+                                </div>
                             </div>
+                            <button
+                                className="adopt-button"
+                                onClick={() =>
+                                    (window.location.href = `/paltu/adoptionform?tag_id=${animalDetails.tag_id}`)
+                                }
+                            >
+                                Adopt now
+                            </button></>
                         )}
                     </div>
-
                 )}
-
             </div>
         );
     };
