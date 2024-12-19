@@ -11,18 +11,24 @@ export default function Home() {
     <>
       <Header />
       <Stack gap={0} p={0} m={0}>
-        <Box w={"100%"} h={"100vh"} pos={"relative"}>
+        <Box w={"100%"} h={"60vh"} pos={"relative"}>
           <MainCarousel />
         </Box>
-        <Box bg={"yellow.4"}>
+        <Title style={{color: "white",padding: "10px",background:"#03d2ff"}}>
+          Our Wings...
+          </Title>
+        <Box w={"100%"} h={"50vh"} pos={"relative"}>
+        <Image fill src="/images/AWH-wings .png"  alt=""/>
+        </Box>
+        <Box bg={"#fff500"}>
           <Container>
             <StatsGroup />
           </Container>
         </Box>
-        <Box bg={"yellow.4"}>
+        <Box bg={"#fff500"}>
           <Box bg={"blue.4"} style={{ borderRadius: "0 100px 100px 0" }} py={"3em"}>
             <Container>
-              <Title my={"lg"} order={2} size={"3rem"} c={"yellow.4"}>
+              <Title my={"lg"} order={2} size={"3rem"} c={"#fff500"}>
                 Our Work
               </Title>
               <WorkCards />
@@ -43,7 +49,7 @@ export default function Home() {
           </Flex>
           <Box bg={"blue.4"} pb={"3em"}>
             <Flex gap={"1em"} align={"start"} justify={"space-between"} px={"xl"}>
-              <Title order={1} size={"5rem"} c={"yellow.4"}>
+              <Title order={1} size={"5rem"} c={"#fff500"}>
                 CAMPAIGNS
               </Title>
               <Text size={"1.5em"} c={"white"}>
@@ -67,7 +73,7 @@ export default function Home() {
             />
           </Box>
           <Flex gap={"1em"} h={"80vh"} align={"center"} justify={"space-between"} px={"xl"}>
-            <Title order={1} size={"5rem"} c={"yellow.4"}>
+            <Title order={1} size={"5rem"} c={"#fff500"}>
               Why Should You <br /> Join Us?
             </Title>
             <Text size={"lg"} c={"white"}>

@@ -69,10 +69,10 @@ export function MainCarousel() {
   const autoplay = useRef(Autoplay({ delay: 2500 }));
 
   return (
-    <Carousel w={"100%"} h={"90%"} pos={"absolute"} top={0} left={0} loop plugins={[autoplay.current]} onMouseEnter={autoplay.current.stop} onMouseLeave={autoplay.current.reset}>
+    <Carousel w={"100%"} h={"70%"} pos={"absolute"} top={0} left={0} loop plugins={[autoplay.current]} onMouseEnter={autoplay.current.stop} onMouseLeave={autoplay.current.reset}>
       {slides.map((slide) => (
         <CarouselSlide key={slide.id} w={"100%"} h={"90%"} pos={"relative"} top={0} left={0}>
-          <Box w={"100vw"} h={"100vh"} pos={"relative"}>
+          <Box w={"100vw"} h={"60vh"} pos={"relative"}>
             <Image
               src={slide.image}
               alt="Background"

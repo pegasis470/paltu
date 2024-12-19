@@ -24,7 +24,7 @@ export function Header() {
 
   return (
     <header style={{ height: "0", position: "absolute", top: 0, left: 0, width: "100%", background: "black", zIndex: 50 }}>
-      <Box bg={"rgba(0,0,0,0)"} p={"0.5em"}>
+      <Box bg={"rgba(0,0,0,0)"} p={"2em"}>
         {/* <Container size="md"> */}
         <Group justify="space-between">
           <Group gap={"lg"}>
@@ -32,7 +32,7 @@ export function Header() {
             <Group gap={"lg"} visibleFrom="xs">
               {items}
             </Group>
-            <Button color="blue.6" variant="filled">
+            <Button color="#03d2ff" variant="filled">
               Donate
             </Button>
           </Group>
