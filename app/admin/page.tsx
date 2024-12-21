@@ -1,9 +1,19 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+interface Application {
+    id: number;
+    name: string;
+    occupation: string;
+    tag_id: number;
+    status: string;
+    adopter_image:string;
+    adopter_doc: string;
+  }
+  
 
 export default function ApplicationsPage() {
-  const [applications, setApplications] = useState([]);
-  const [selectedApplication, setSelectedApplication] = useState(null);
+    const [applications, setApplications] = useState<Application[]>([]); // Specify Application[] type
+    const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
 
   // Fetch all applications
   useEffect(() => {
