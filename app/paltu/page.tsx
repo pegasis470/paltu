@@ -68,10 +68,17 @@ export default function AdoptAnimalPage() {
         };
         fetchAnimals();
     }, []);
-
+    const Scroll = () => {
+      const windowHeight = document.documentElement.scrollHeight;
+      window.scrollTo({
+          top: windowHeight * 0.5,
+          behavior: 'smooth'
+      });
+  };
     // Fetch animal details by ID
     const fetchAnimalsByID = async (tag_id: number) => {
         try {
+
             const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tag_id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -79,14 +86,10 @@ export default function AdoptAnimalPage() {
             const data = await response.json();
             setAnimalDetails(data);
             setDetailsFound(true);
-              const windowHeight = document.documentElement.scrollHeight;
-              window.scrollTo({
-                  top: windowHeight * 0.5,
-                  behavior: 'smooth'
-              });
         } catch (error) {
             console.error('Error fetching animal details:', error);
         }
+        Scroll();
     };
 
     // Display the next slide
