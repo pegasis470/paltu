@@ -35,7 +35,10 @@ const placeholderData = {
     pets: true,
     home_type: "on",
     adopter_image: "cloud",
-    adopter_doc: "cloud"
+    adopter_doc: "cloud",
+    aloneTime:"something",
+    caretakerDuringTravel:"with me",
+    relocationPlans:"none"
   }
 };
 
@@ -114,13 +117,12 @@ const AdoptionForm = () => {
               </div>
             </div>
             <div className="description">
-              <p>Name of Caretaker: {placeholderData.Caretaker.name}</p>
+              <p>Name of Caretaker: {placeholderData.Caretaker.caretaker}</p>
               <p>Contact No.: {placeholderData.Caretaker.contact}</p>
               <p>WhatsApp No.: {placeholderData.Caretaker.whatsapp}</p>
-              <p>Email: {placeholderData.Caretaker.email}</p>
-              <p>Local Residence: {placeholderData.Caretaker.localResidence}</p>
-              <p>Permanent Residence: {placeholderData.Caretaker.permanentResidence}</p>
-              <p>Instagram/Facebook ID: {placeholderData.Caretaker.socialMedia}</p>
+              <p>Occupation: {placeholderData.Caretaker.occupation}</p>
+              <p>Local Residence: {placeholderData.Caretaker.address}</p>
+              <p>Instagram/Facebook ID: {placeholderData.Caretaker.social}</p>
             </div>
           </div>
         </Stack>
@@ -140,10 +142,8 @@ const AdoptionForm = () => {
               <p>Name of Adopter: {placeholderData.Adoptor.name}</p>
               <p>Contact No.: {placeholderData.Adoptor.contact}</p>
               <p>WhatsApp No.: {placeholderData.Adoptor.whatsapp}</p>
-              <p>Email: {placeholderData.Adoptor.email}</p>
-              <p>Local Residence: {placeholderData.Adoptor.localResidence}</p>
-              <p>Permanent Residence: {placeholderData.Adoptor.permanentResidence}</p>
-              <p>Instagram/Facebook ID: {placeholderData.Adoptor.socialMedia}</p>
+              <p>Home Type: {placeholderData.Adoptor.home_type}</p>
+              <p>Permanent Residence: {placeholderData.Adoptor.address}</p>
             </div>
           </div>
 
