@@ -3,38 +3,40 @@ import React, { useEffect, useState } from "react";
 import "/public/css/PrintAdoptionForm.css";
 import { Center, List, Loader, Stack } from "@mantine/core";
 const placeholderData = {
-  animal: {
-    sex: "M",
-    age: "2 years",
-    breed: "Labrador",
-    color: "Golden",
-    fitness: "Healthy",
-    vaccination: "Up-to-date",
-    sterilization: "Yes",
+  meta: {
+    id: 1,
+    tag_id: 0
   },
-  caretaker: {
-    name: "John Doe",
-    contact: "1234567890",
-    whatsapp: "1234567890",
-    email: "johndoe@example.com",
-    localResidence: "123 Local St, City",
-    permanentResidence: "456 Permanent Ave, City",
-    socialMedia: "@johndoe",
+  Animal: {
+    age: 0,
+    type: "string",
+    gender: "Not sure",
+    fitness: "string",
+    sterilisation: true,
+    vaccination: true,
+    photos: "https://res.cloudinary.com/dsm1ingy6/image/upload/v1734518375/Paltu/yrgxkbz8mppp0ojbofhy.png"
   },
-  adopter: {
-    name: "Jane Smith",
-    contact: "0987654321",
-    whatsapp: "0987654321",
-    email: "janesmith@example.com",
-    localResidence: "789 Adopter Rd, City",
-    permanentResidence: "321 Adopter Blvd, City",
-    socialMedia: "@janesmith",
-    previousPets: "Yes, a dog and a cat",
-    aloneTime: "4 hours",
-    caretakerDuringTravel: "Family member",
-    relocationPlans: "Take the pet with me",
-    date: "21/12/2024",
+  Caretaker: {
+    caretaker: "string",
+    contact: "string",
+    whatsapp: null,
+    address: null,
+    social: null,
+    occupation: null,
+    caretaker_image: null,
+    caretaker_doc: null
   },
+  Adoptor: {
+    name: "admin",
+    occupation: "jn",
+    contact: "osdgdrkp",
+    whatsapp: "ion",
+    address: "noi",
+    pets: true,
+    home_type: "on",
+    adopter_image: "cloud",
+    adopter_doc: "cloud"
+  }
 };
 
 const AdoptionForm = () => {
@@ -47,7 +49,7 @@ const AdoptionForm = () => {
       const applicationId = searchParams.get("application_id");
 
       try {
-        const response = await fetch(`http://127.0.0.1:8000/form/form?application_id=${applicationId}`);
+        const response = await fetch(`https://adoption-backed.vercel.app/form/form?application_id=${applicationId}`);
         const result = await response.json();
         setData(result);
       } catch (error) {
@@ -95,31 +97,30 @@ const AdoptionForm = () => {
               <img src="/images/dog.jpg" alt="Dog" width="200" />
             </div>
             <div className="description">
-              <p>Sex: {placeholderData.animal.sex}</p>
-              <p>Age: {placeholderData.animal.age}</p>
-              <p>Breed: {placeholderData.animal.breed}</p>
-              <p>Type & Color of Fur: {placeholderData.animal.color}</p>
-              <p>Physical Fitness Status: {placeholderData.animal.fitness}</p>
-              <p>Vaccination Status: {placeholderData.animal.vaccination}</p>
-              <p>Sterilization Status: {placeholderData.animal.sterilization}</p>
+              <p>Sex: {placeholderData.Animal.gender}</p>
+              <p>Age: {placeholderData.Animal.age}</p>
+              <p>Breed: {placeholderData.Animal.type}</p>
+              <p>Physical Fitness Status: {placeholderData.Animal.fitness}</p>
+              <p>Vaccination Status: {placeholderData.Animal.vaccination ? "yes":"no"}</p>
+              <p>Sterilization Status: {placeholderData.Animal.sterilisation ? "yes":"no"}</p>
             </div>
           </div>
           <h2 className="subtitle">Details of Caretaker</h2>
           <div className="grid-2">
             <div className="image">
               <div>
-                <img src="/images/caretaker.jpg" alt="Caretaker" width="200" />
+                <img src={placeholderData.Animal.photos} alt="Caretaker" width="200" />
                 <p className="signature">Date, Signature & Name of Caretaker</p>
               </div>
             </div>
             <div className="description">
-              <p>Name of Caretaker: {placeholderData.caretaker.name}</p>
-              <p>Contact No.: {placeholderData.caretaker.contact}</p>
-              <p>WhatsApp No.: {placeholderData.caretaker.whatsapp}</p>
-              <p>Email: {placeholderData.caretaker.email}</p>
-              <p>Local Residence: {placeholderData.caretaker.localResidence}</p>
-              <p>Permanent Residence: {placeholderData.caretaker.permanentResidence}</p>
-              <p>Instagram/Facebook ID: {placeholderData.caretaker.socialMedia}</p>
+              <p>Name of Caretaker: {placeholderData.Caretaker.name}</p>
+              <p>Contact No.: {placeholderData.Caretaker.contact}</p>
+              <p>WhatsApp No.: {placeholderData.Caretaker.whatsapp}</p>
+              <p>Email: {placeholderData.Caretaker.email}</p>
+              <p>Local Residence: {placeholderData.Caretaker.localResidence}</p>
+              <p>Permanent Residence: {placeholderData.Caretaker.permanentResidence}</p>
+              <p>Instagram/Facebook ID: {placeholderData.Caretaker.socialMedia}</p>
             </div>
           </div>
         </Stack>
@@ -131,18 +132,18 @@ const AdoptionForm = () => {
           <div className="grid-2">
             <div className="image">
               <div>
-                <img src="/images/adopter.jpg" alt="Adopter" width="200" />
+                <img src={placeholderData.Adoptor.adopter_image} alt="Adopter" width="200" />
                 <p className="signature">Date, Signature & Name of Adopter</p>
               </div>
             </div>
             <div className="description">
-              <p>Name of Adopter: {placeholderData.adopter.name}</p>
-              <p>Contact No.: {placeholderData.adopter.contact}</p>
-              <p>WhatsApp No.: {placeholderData.adopter.whatsapp}</p>
-              <p>Email: {placeholderData.adopter.email}</p>
-              <p>Local Residence: {placeholderData.adopter.localResidence}</p>
-              <p>Permanent Residence: {placeholderData.adopter.permanentResidence}</p>
-              <p>Instagram/Facebook ID: {placeholderData.adopter.socialMedia}</p>
+              <p>Name of Adopter: {placeholderData.Adoptor.name}</p>
+              <p>Contact No.: {placeholderData.Adoptor.contact}</p>
+              <p>WhatsApp No.: {placeholderData.Adoptor.whatsapp}</p>
+              <p>Email: {placeholderData.Adoptor.email}</p>
+              <p>Local Residence: {placeholderData.Adoptor.localResidence}</p>
+              <p>Permanent Residence: {placeholderData.Adoptor.permanentResidence}</p>
+              <p>Instagram/Facebook ID: {placeholderData.Adoptor.socialMedia}</p>
             </div>
           </div>
 
@@ -152,13 +153,13 @@ const AdoptionForm = () => {
               <p>Have you had a pet before or have one right now?</p>
             </List.Item>
             <List.Item>
-              <p>Amount of time your pet may have to be alone in a day? {placeholderData.adopter.aloneTime}</p>
+              <p>Amount of time your pet may have to be alone in a day? {placeholderData.Adoptor.aloneTime}</p>
             </List.Item>
             <List.Item>
-              <p>Who will take care of your pet if you go out of town temporarily? {placeholderData.adopter.caretakerDuringTravel}</p>
+              <p>Who will take care of your pet if you go out of town temporarily? {placeholderData.Adoptor.caretakerDuringTravel}</p>
             </List.Item>
             <List.Item>
-              <p>What are your plans for your pet if you shift to another town/place? {placeholderData.adopter.relocationPlans}</p>
+              <p>What are your plans for your pet if you shift to another town/place? {placeholderData.Adoptor.relocationPlans}</p>
             </List.Item>
           </List>
 

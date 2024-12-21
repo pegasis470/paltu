@@ -6,16 +6,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ff7300;
+    background-color: #f69001; 
 }
 
 #main {
     position: relative;
     width: 100%;
-    min-width: 80%;
-    max-width: 80%;
-    height: 700px;
-    padding: 20px;
+    min-width: 85%;
+    max-width: 85%;
+    height: 750px;
+    padding: 50px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -23,9 +23,11 @@ body {
     justify-content: center;
     display: flex;         
     flex-direction: column;
+    background-color: #ff7300
 }
 #main h1{
     text-align: center;
+    color: #5f4230;
 }
 .carousel-container {
     position: relative;
@@ -34,9 +36,10 @@ body {
     padding: 20px;
     padding-top: 40px;
     overflow: hidden;
-    background-color: #fff505;
+    background-color: #fac203;
     border-radius: 10px;
     margin: 0 auto;
+    
 }
 
 #carousel-slides {

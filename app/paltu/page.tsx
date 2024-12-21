@@ -114,8 +114,8 @@ export default function AdoptAnimalPage() {
           )}
           {!loading && (
               <>
-              <div style={{width: "100%"}} > 
-                <img height={"120"} style={{marginLeft:"92%"}} src="/images/paltu logo.png" alt="" />
+              <div style={{marginTop: "-1%", width: "100%"}} > 
+                <img height={"120"} style={{marginLeft:"95%"}} src="/images/paltu logo.png" alt="" />
               </div>
                   <div id="main">
                       <h1>Have a look at our Cuties....</h1>
