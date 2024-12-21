@@ -17,8 +17,8 @@ export default function Home() {
         <Title style={{color: "white",padding: "10px",background:"#03d2ff"}}>
           Our Wings...
           </Title>
-        <Box w={"100%"} h={"50vh"} pos={"relative"}>
-        <Image fill src="/images/AWH-wings .png"  alt=""/>
+        <Box w={"100%"} h={"50vh"} pos={"relative"}><a href="/paltu">
+        <Image fill src="/images/AWH-wings .png"  alt=""/></a>
         </Box>
         <Box bg={"#fff500"}>
           <Container>

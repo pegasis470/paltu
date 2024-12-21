@@ -2,11 +2,81 @@ body {
     font-family: Arial, sans-serif;
     color: #5f4230;
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f69001;
+    background-color: #ff7300;
+}
+
+#main {
+    position: relative;
+    width: 100%;
+    min-width: 80%;
+    max-width: 80%;
+    height: 700px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;         
+    flex-direction: column;
+}
+#main h1{
+    text-align: center;
+}
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-top: 40px;
+    overflow: hidden;
+    background-color: #fff505;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+#carousel-slides {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    height: 100%;
+}
+
+.carousel-slide {
+    flex: 0 0 calc(25% - 15px); /* 25% width for 4 cards with gap consideration */
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    
+}
+
+.carousel-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    color: white;
+    text-align: center;
+}
+
+.carousel-overlay h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+}
+
+.carousel-overlay p {
+    margin: 5px 0;
 }
 
 .details-button {
@@ -18,47 +88,9 @@ body {
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
+    transition: background-color 0.3s ease;
 }
-#main {
-    position: relative;
-    width: 1200px;
-    max-width: 1200px;
-    height: 500px;
-    align-items: center;
-    justify-content: center;
-}
-#main h1 {
-    align-items: center;
-    text-align: center;
-}
-.carousel-container {
-    position: absolute;
-    width: 70%;
-    height: 80%;
-    overflow: visible;
-    border-radius: 10px;
-    margin-left: 15%;
-}
-.carousel-slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.5s ease;
-}
-.carousel-overlay {
-    width: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    padding: 15px;
-    font-size: 15px;
-    box-sizing: border-box;
-    text-align: center;
-    color: white;
-}
+
 .carousel-button {
     position: absolute;
     top: 50%;
@@ -66,18 +98,92 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     border: none;
-    padding: 10px;
+    padding: 15px 20px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
     border-radius: 5px;
+    z-index: 2;
+    transition: background-color 0.3s ease;
 }
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 .carousel-button.left {
     left: 10px;
-    z-index: 99;
 }
+
 .carousel-button.right {
     right: 10px;
+}
+
+/* Animal Details Section */
+.animal-details{
     z-index: 99;
+    max-height: 800px;
+    margin-top: 400%;
+    text-align: left;
+    align-items: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+
+}
+.animal-details-container {
+    position: relative;
+    width: 700px; /* Match image width */
+    max-width: 700px;
+    max-height: fit-content;
+    margin: 0 auto; /* Center the container*/
+    margin-top: 5%;
+    border-radius: 10px;
+    /*overflow: hidden;*/
+
+}
+
+.animal-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-position: center;
+
+}
+
+.animal-overlay {
+    position: absolute;
+    margin-top: 500px;
+    bottom: 0; /* Place the overlay at the bottom */
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(95, 66, 48, 0.7); /* Semi-transparent brown */
+    color: white;
+    text-align: left;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+}
+.animal-overlay p{
+    margin-left: 10%;
+}
+.animal-overlay h2 {
+    margin: 7%;
+    font-size: 20px;
+}
+
+.adopt-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #5f4230;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
 }
 #loader {
     position: absolute;
@@ -102,67 +208,4 @@ body {
     transform: translate(-50%, -50%);
     z-index: -1;
     object-fit: cover;
-}
-.animal-details{
-    z-index: 99;
-    max-height: 800px;
-    margin-top: 400%;
-    text-align: left;
-    align-items: center;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-
-}
-.animal-details-container {
-    position: relative;
-    width: 700px; /* Match image width */
-    max-width: 700px;
-    max-height: 450px;
-    margin: 0 auto; /* Center the container */
-    margin-top: 40%;
-    border-radius: 10px;
-    overflow: hidden;
-
-}
-
-.animal-image {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    background-position: center;
-    
-}
-
-.animal-overlay {
-    position: absolute;
-    bottom: 0; /* Place the overlay at the bottom */
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(95, 66, 48, 0.7); /* Semi-transparent brown */
-    color: white;
-    text-align: left;
-    padding: 15px;
-    box-sizing: border-box;
-}
-.animal-overlay p{
-    margin-left: 10%;
-}
-.animal-overlay h2 {
-    margin: 7%;
-    font-size: 20px;
-}
-
-.adopt-button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #5f4230;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 15px;
-    margin-left: 45%;
 }

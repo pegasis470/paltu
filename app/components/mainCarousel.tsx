@@ -20,6 +20,7 @@ const slides = [
     size="lg"
     variant="filled"
     color="#a2bd42"
+    onClick={() => window.location.href = '/paltu'}
     > 
       Click here for details
     </Button> 
@@ -54,6 +55,7 @@ const slides = [
       size="lg"
       variant="filled"
       color="#03d2ff"
+      
       >
         Donate Now
       </Button> 
