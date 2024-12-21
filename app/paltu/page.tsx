@@ -50,7 +50,7 @@ export default function AdoptAnimalPage() {
 
                 // Group animals into slides of 4, or keep all in a single slide if total is less than 4
                 const groupedAnimals =
-                    filteredAnimals.length <= 4 ? [filteredAnimals] : filteredAnimals.reduce((result, animal, index) => {
+                    filteredAnimals.length <= 4 ? [filteredAnimals] : filteredAnimals.reduce((result:any, animal:any, index:any) => {
                         const groupIndex = Math.floor(index / 4);
                         if (!result[groupIndex]) {
                             result[groupIndex] = [];
