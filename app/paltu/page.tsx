@@ -79,6 +79,11 @@ export default function AdoptAnimalPage() {
             const data = await response.json();
             setAnimalDetails(data);
             setDetailsFound(true);
+              const windowHeight = document.documentElement.scrollHeight;
+              window.scrollTo({
+                  top: windowHeight * 0.5,
+                  behavior: 'smooth'
+              });
         } catch (error) {
             console.error('Error fetching animal details:', error);
         }
