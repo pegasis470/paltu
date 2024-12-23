@@ -38,7 +38,7 @@ export default function AdminPage() {
           return;
         }
   
-        const response = await fetch(`https://adoption-backed.vercel.app//users/users/${username}`);
+        const response = await fetch(`https://adoption-backed.vercel.app/users/users/${username}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
@@ -46,7 +46,7 @@ export default function AdminPage() {
         const userData = await response.json();
   
         if (userData.status === "Online") {
-          const applicationsResponse = await fetch("https://adoption-backed.vercel.app//applications/applications/");
+          const applicationsResponse = await fetch("https://adoption-backed.vercel.app/applications/applications/");
           if (!applicationsResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -73,7 +73,7 @@ export default function AdminPage() {
 
   const fetchApplicationDetails = async (applicationId: number) => {
     try {
-      const response = await fetch(`https://adoption-backed.vercel.app//applications/applications/${applicationId}`);
+      const response = await fetch(`https://adoption-backed.vercel.app/applications/applications/${applicationId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch application details");
       }
@@ -92,7 +92,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `https://adoption-backed.vercel.app//form/approve?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app/form/approve?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -123,7 +123,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `https://adoption-backed.vercel.app//form/decline?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app/form/decline?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -159,7 +159,7 @@ export default function AdminPage() {
       }
 
       // Send logout request
-      const response = await fetch(`https://adoption-backed.vercel.app//users/users/logout?user=${username}`, {
+      const response = await fetch(`https://adoption-backed.vercel.app/users/users/logout?user=${username}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",
