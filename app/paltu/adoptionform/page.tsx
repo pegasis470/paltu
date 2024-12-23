@@ -9,10 +9,11 @@ const AdoptionForm = () => {
     name: "",
     contact: "",
     whatsapp: "",
+    Email:"",
+    hometype: "",
     address: "",
     occupation: "",
-    pets: "true",
-    hometype: "",
+    incamp:true
   });
   const [adopterImage, setAdopterImage] = useState(null);
   const [adopterDoc, setAdopterDoc] = useState(null);
@@ -45,10 +46,11 @@ const AdoptionForm = () => {
     formPayload.append("name", formData.name);
     formPayload.append("contact", formData.contact);
     formPayload.append("whatsapp", formData.whatsapp);
+    formPayload.append("Email",formData.Email)
     formPayload.append("address", formData.address);
     formPayload.append("occupation", formData.occupation);
-    formPayload.append("pets", String(formData.pets === "true"));
     formPayload.append("hometype", formData.hometype);
+    formPayload.append("incamp", formData.incamp ? "yes" : "no");
     if (adopterImage) formPayload.append("adopter_image", adopterImage);
     if (adopterDoc) formPayload.append("adopter_doc", adopterDoc);
     
@@ -190,19 +192,6 @@ const AdoptionForm = () => {
             style={styles.input}
           />
 
-          <label htmlFor="address" style={styles.label}>
-            Address:
-          </label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            placeholder="Enter your address"
-            value={formData.address}
-            onChange={handleInputChange}
-            required
-            style={styles.input}
-          />
 
           <label htmlFor="occupation" style={styles.label}>
             Occupation:
@@ -217,20 +206,20 @@ const AdoptionForm = () => {
             required
             style={styles.input}
           />
-
-          <label htmlFor="pets" style={styles.label}>
-            Have you had any pets before?
+          
+          <label htmlFor="Email" style={styles.label}>
+            Email Address:
           </label>
-          <select
-            id="pets"
-            name="pets"
-            value={formData.pets}
+          <input
+            type="text"
+            id="Email"
+            name="Email"
+            placeholder="Enter your occupation"
+            value={formData.Email}
             onChange={handleInputChange}
+            required
             style={styles.input}
-          >
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-          </select>
+          />
 
           <label htmlFor="hometype" style={styles.label}>
             Home type:
@@ -245,7 +234,34 @@ const AdoptionForm = () => {
             required
             style={styles.input}
           />
+          <label htmlFor="incamp" style={styles.label}>
+            Are you currently in adoption camp 7.0?
+          </label>
+          <select
+            id="incamp"
+            name="incamp"
+            value={formData.incamp ? "true" : "false"}
+            onChange={handleInputChange}
+            style={styles.input}
+          >
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
 
+
+          <label htmlFor="address" style={styles.label}>
+            Address:
+          </label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Enter your address"
+            value={formData.address}
+            onChange={handleInputChange}
+            required
+            style={styles.input}
+          />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <label htmlFor="adopter_doc" style={{ width: "48%" }}>
               Attach an image of your ID for verification:
