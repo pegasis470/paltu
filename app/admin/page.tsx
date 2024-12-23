@@ -14,6 +14,7 @@ interface Application {
   adopter_image: string;
   adopter_doc: string;
   status: string;
+  incamp: boolean;
 }
 
 export default function AdminPage() {
@@ -37,7 +38,7 @@ export default function AdminPage() {
           return;
         }
   
-        const response = await fetch(`http://127.0.0.1:8000/users/users/${username}`);
+        const response = await fetch(`https://adoption-backed.vercel.app//users/users/${username}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
@@ -45,7 +46,7 @@ export default function AdminPage() {
         const userData = await response.json();
   
         if (userData.status === "Online") {
-          const applicationsResponse = await fetch("http://127.0.0.1:8000/applications/applications/");
+          const applicationsResponse = await fetch("https://adoption-backed.vercel.app//applications/applications/");
           if (!applicationsResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -72,7 +73,7 @@ export default function AdminPage() {
 
   const fetchApplicationDetails = async (applicationId: number) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/applications/applications/${applicationId}`);
+      const response = await fetch(`https://adoption-backed.vercel.app//applications/applications/${applicationId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch application details");
       }
@@ -91,7 +92,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/approve?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app//form/approve?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -122,7 +123,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/decline?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app//form/decline?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -158,7 +159,7 @@ export default function AdminPage() {
       }
 
       // Send logout request
-      const response = await fetch(`http://127.0.0.1:8000/users/users/logout?user=${username}`, {
+      const response = await fetch(`https://adoption-backed.vercel.app//users/users/logout?user=${username}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",
@@ -243,6 +244,7 @@ export default function AdminPage() {
               <p><strong>Address:</strong> {selectedApplication.address}</p>
               <p><strong>Email:</strong> {selectedApplication.email || "N/A"}</p>
               <p><strong>Status:</strong> {selectedApplication.status}</p>
+              <p><strong>Present in camp: {selectedApplication.incamp}</strong></p>
               <div style={{display:"flex"}}>
               <p style={{width:"50%"}}><strong>Adopter Image:</strong></p>
               <p><strong>Adopter Document:</strong></p>

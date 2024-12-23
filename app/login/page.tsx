@@ -12,7 +12,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/users/users/login", {
+      const response = await fetch("https://adoption-backed.vercel.app/users/users/login", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -38,14 +38,19 @@ export default function LoginPage() {
     }
   };
 
-  return (
+  return (<>
+  <div style={{overflow:"hidden"}}>
+      <div style={{ width: "100%",display:"flex"}} > 
+      <img src="./images/AWH-logo.png" height={"100"} alt="" />
+      <img height={"100"} style={{marginLeft:"85%"}} src="/images/paltu logo.png" alt="" />
+      </div>
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
+        height: "100%",
         backgroundColor: "#f5f5f5",
         padding: "20px",
       }}
@@ -105,5 +110,7 @@ export default function LoginPage() {
         </button>
       </form>
     </div>
+    </div>
+    </>
   );
 }

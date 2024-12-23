@@ -21,7 +21,10 @@ const AdoptionForm = () => {
   // Handle form field changes
   const handleInputChange = (e:any) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: name === "incamp" ? (value === "yes") : value,
+    });
   };
 
   // Handle file inputs
@@ -46,16 +49,19 @@ const AdoptionForm = () => {
     formPayload.append("name", formData.name);
     formPayload.append("contact", formData.contact);
     formPayload.append("whatsapp", formData.whatsapp);
-    formPayload.append("Email",formData.Email)
+    formPayload.append("email",formData.Email)
     formPayload.append("address", formData.address);
     formPayload.append("occupation", formData.occupation);
     formPayload.append("hometype", formData.hometype);
-    formPayload.append("incamp", formData.incamp ? "yes" : "no");
+    formPayload.append("incamp", formData.incamp ? "true" : "false");
+    if (!adopterImage || !adopterDoc) {
+      alert("Please upload both Adopter Image and Adopter Document.");
+    };    
     if (adopterImage) formPayload.append("adopter_image", adopterImage);
     if (adopterDoc) formPayload.append("adopter_doc", adopterDoc);
     
     try {
-      const response = await fetch("http://127.0.0.1:8000/applications/applications/", {
+      const response = await fetch("https://adoption-backed.vercel.app/applications/applications/", {
         method: "POST",
         body: formPayload,
       });
@@ -240,7 +246,7 @@ const AdoptionForm = () => {
           <select
             id="incamp"
             name="incamp"
-            value={formData.incamp ? "true" : "false"}
+            value={formData.incamp ? "yes":"no"}
             onChange={handleInputChange}
             style={styles.input}
           >
