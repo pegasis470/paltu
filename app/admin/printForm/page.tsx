@@ -2,48 +2,56 @@
 import React, { useEffect, useState } from "react";
 import "/public/css/PrintAdoptionForm.css";
 import { Center, List, Loader, Stack } from "@mantine/core";
-const placeholderData = {
+
+interface FormData {
   meta: {
-    id: 1,
-    tag_id: 0
-  },
+    id: number;
+    tag_id: number;
+  };
   Animal: {
-    age: 0,
-    type: "string",
-    gender: "Not sure",
-    fitness: "string",
-    sterilisation: true,
-    vaccination: true,
-    photos: "https://res.cloudinary.com/dsm1ingy6/image/upload/v1734518375/Paltu/yrgxkbz8mppp0ojbofhy.png"
-  },
+    age: number;
+    type: string;
+    gender: string;
+    fitness: string;
+    sterilisation: boolean;
+    vaccination: boolean;
+    photos: string;
+  };
   Caretaker: {
-    caretaker: "string",
-    contact: "string",
-    whatsapp: null,
-    address: null,
-    social: null,
-    occupation: null,
-    caretaker_image: null,
-    caretaker_doc: null
-  },
+    caretaker: string;
+    contact: string;
+    whatsapp: string | null;
+    address: string | null;
+    social: string | null;
+    occupation: string | null;
+    caretaker_image: string | null;
+    caretaker_doc: string | null;
+  };
   Adoptor: {
-    name: "admin",
-    occupation: "jn",
-    contact: "osdgdrkp",
-    whatsapp: "ion",
-    address: "noi",
-    pets: true,
-    home_type: "on",
-    adopter_image: "cloud",
-    adopter_doc: "cloud",
-    aloneTime:"something",
-    caretakerDuringTravel:"with me",
-    relocationPlans:"none"
+    name: string;
+    occupation: string;
+    contact: string;
+    whatsapp: string;
+    address: string;
+    pets: boolean;
+    home_type: string;
+    adopter_image: string;
+    adopter_doc: string;
+    aloneTime: string;
+    caretakerDuringTravel: string;
+    relocationPlans: string;
+  };
+  GenralInformation:{
+    councler:string;
+    pets:string;
+    alone:string;
+    temp_caretaker:string;
+    plans:string
   }
-};
+}
 
 const AdoptionForm = () => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<FormData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -52,7 +60,7 @@ const AdoptionForm = () => {
       const applicationId = searchParams.get("application_id");
 
       try {
-        const response = await fetch(`https://adoption-backed.vercel.app/form/form?application_id=${applicationId}`);
+        const response = await fetch(`http://127.0.0.1:8000/form/form?application_id=${applicationId}`);
         const result = await response.json();
         setData(result);
       } catch (error) {
@@ -77,93 +85,98 @@ const AdoptionForm = () => {
     );
   }
 
-  if (!data) {
-    return <div>Form not found</div>;
+  if (!data || !data.meta || !data.Animal || !data.Caretaker || !data.Adoptor ) {
+    return <div>Form data is incomplete or not found</div>;
   }
 
   return (
-    <div className="adoptionForm">
       <div className="page">
-        <p>Serial Number: _______________ </p>
+        <p>Serial Number: {data.meta?.id || 'N/A'}</p>
         <div className="logoContainer">
           <img src="/images/AWH-logo.png" alt="AWH Logo" width="200" />
         </div>
         <h1 className="title">ADOPTION & CONSENT FORM</h1>
-        <hr />
-        <div className="grid-2 form-1">
-          <p>Date: _______________</p> <p>Name of Counselor: ___________________</p>
+        <div className="grid-2 form-1" style={{display:"flex",width:"100%"}}>
+          <p>Date: _______________</p> <p style={{marginLeft:"50%"}}>Name of Counselor: {data.GenralInformation.councler}</p>
         </div>
         <Stack gap={"md"}>
           <h2 className="subtitle">Description of Animal</h2>
-          <div className="grid-2">
-            <div className="image">
-              <img src="/images/dog.jpg" alt="Dog" width="200" />
-            </div>
+          <div className="grid-1">
             <div className="description">
-              <p>Sex: {placeholderData.Animal.gender}</p>
-              <p>Age: {placeholderData.Animal.age}</p>
-              <p>Breed: {placeholderData.Animal.type}</p>
-              <p>Physical Fitness Status: {placeholderData.Animal.fitness}</p>
-              <p>Vaccination Status: {placeholderData.Animal.vaccination ? "yes":"no"}</p>
-              <p>Sterilization Status: {placeholderData.Animal.sterilisation ? "yes":"no"}</p>
+              <p>Sex: {data.Animal?.gender || 'N/A'}</p>
+              <p>Age: {data.Animal?.age || 'N/A'}</p>
+              <p>Breed: {data.Animal?.type || 'N/A'}</p>
+              <p>Physical Fitness Status: {data.Animal?.fitness || 'N/A'}</p>
+              <p>Vaccination Status: {data.Animal?.vaccination ? "yes" : "no"}</p>
+              <p>Sterilization Status: {data.Animal?.sterilisation ? "yes" : "no"}</p>
+            </div>
+            <div className="image">
+              <img src={data.Animal.photos} alt="Dog" width="200" />
             </div>
           </div>
+          <div style={{display:"flex"}}>
           <h2 className="subtitle">Details of Caretaker</h2>
+          <h2 className="subtitle">Details of Adopter</h2>
+          </div>
+          <div style={{display:"flex"}}>
           <div className="grid-2">
+            <div className="description">
+              <p>Name of Caretaker: {data.Caretaker?.caretaker || 'N/A'}</p>
+              <p>Contact No.: {data.Caretaker?.contact || 'N/A'}</p>
+              <p>WhatsApp No.: {data.Caretaker?.whatsapp || 'N/A'}</p>
+              <p>Occupation: {data.Caretaker?.occupation || 'N/A'}</p>
+              <p>Local Residence: {data.Caretaker?.address || 'N/A'}</p>
+              <p>Instagram/Facebook ID: {data.Caretaker?.social || 'N/A'}</p>
+            </div>
             <div className="image">
               <div>
-                <img src={placeholderData.Animal.photos} alt="Caretaker" width="200" />
+                <img src={data.Caretaker.caretaker_image|| "https://res-console.cloudinary.com/dsm1ingy6/media_explorer_thumbnails/7819b64128d64c1755383c3e00f0ab50/detailed"} alt="Caretaker" width="200" />
                 <p className="signature">Date, Signature & Name of Caretaker</p>
               </div>
             </div>
-            <div className="description">
-              <p>Name of Caretaker: {placeholderData.Caretaker.caretaker}</p>
-              <p>Contact No.: {placeholderData.Caretaker.contact}</p>
-              <p>WhatsApp No.: {placeholderData.Caretaker.whatsapp}</p>
-              <p>Occupation: {placeholderData.Caretaker.occupation}</p>
-              <p>Local Residence: {placeholderData.Caretaker.address}</p>
-              <p>Instagram/Facebook ID: {placeholderData.Caretaker.social}</p>
-            </div>
           </div>
-        </Stack>
-      </div>
-
-      <div className="page">
-        <Stack gap={"md"}>
-          <h2 className="subtitle">Details of Adopter</h2>
-          <div className="grid-2">
+            <div className="grid-2">
+            <div className="description">
+              <p>Name of Adopter: {data.Adoptor?.name || 'N/A'}</p>
+              <p>Contact No.: {data.Adoptor?.contact || 'N/A'}</p>
+              <p>WhatsApp No.: {data.Adoptor?.whatsapp || 'N/A'}</p>
+              <p>Home Type: {data.Adoptor?.home_type || 'N/A'}</p>
+              <p>Permanent Residence: {data.Adoptor?.address || 'N/A'}</p>
+            </div>
             <div className="image">
               <div>
-                <img src={placeholderData.Adoptor.adopter_image} alt="Adopter" width="200" />
+                <img src={data.Adoptor?.adopter_image } alt="Adopter" width="200" />
                 <p className="signature">Date, Signature & Name of Adopter</p>
               </div>
             </div>
-            <div className="description">
-              <p>Name of Adopter: {placeholderData.Adoptor.name}</p>
-              <p>Contact No.: {placeholderData.Adoptor.contact}</p>
-              <p>WhatsApp No.: {placeholderData.Adoptor.whatsapp}</p>
-              <p>Home Type: {placeholderData.Adoptor.home_type}</p>
-              <p>Permanent Residence: {placeholderData.Adoptor.address}</p>
             </div>
           </div>
+        </Stack>
 
-          <h2 className="subtitle">General Information</h2>
+        <Stack gap={"md"}>
+
+          <h2 className="subtitle" style={{width:"100%"}}>General Information</h2>
           <List spacing={"md"}>
             <List.Item>
-              <p>Have you had a pet before or have one right now?</p>
+              <p>Have you had a pet before or have one right now? 
+                <br/>
+                <p>{data.GenralInformation?.pets ? "Yes" : "No"}</p></p>
             </List.Item>
             <List.Item>
-              <p>Amount of time your pet may have to be alone in a day? {placeholderData.Adoptor.aloneTime}</p>
+              <p>Amount of time your pet may have to be alone in a day?
+              <br/><p>{data.GenralInformation?.alone || 'N/A'}</p> </p>
             </List.Item>
             <List.Item>
-              <p>Who will take care of your pet if you go out of town temporarily? {placeholderData.Adoptor.caretakerDuringTravel}</p>
+              <p>Who will take care of your pet if you go out of town temporarily? 
+                <br /> <p>{data.GenralInformation?.temp_caretaker || 'N/A'}</p></p>
             </List.Item>
             <List.Item>
-              <p>What are your plans for your pet if you shift to another town/place? {placeholderData.Adoptor.relocationPlans}</p>
+              <p>What are your plans for your pet if you shift to another town/place? 
+                <br /><p>{data.GenralInformation?.plans || 'N/A'}</p></p>
             </List.Item>
           </List>
 
-          <h2 className="subtitle">Consent</h2>
+          <h2 className="subtitle" style={{width:"100%"}}>Consent</h2>
           <List>
             <List.Item>
               <p>
@@ -191,8 +204,6 @@ const AdoptionForm = () => {
             </List.Item>
           </List>
         </Stack>
-      </div>
-      <div className="page">
         <List>
           <List.Item>
             <p>
@@ -202,7 +213,7 @@ const AdoptionForm = () => {
           </List.Item>
           <List.Item>
             <p>
-              I acknowledge that the Animals With Humanity Team possesses the authority to conduct unannounced inspections of the conditions in which I' m taking care for the adopted pet. In the event
+              I acknowledge that the Animals With Humanity Team possesses the authority to conduct unannounced inspections of the conditions in which I'm taking care for the adopted pet. In the event
               of any violations, the Animals With Humanity Team is empowered to take legal action as per applicable law.
             </p>
           </List.Item>
@@ -216,40 +227,25 @@ const AdoptionForm = () => {
             <p>I enter into this contract of my own free will and understand that this is a binding contract enforceable by civil law.</p>
           </List.Item>
         </List>
-        <div className="grid-2">
-          <div style={{ marginTop: "40px", maxWidth: "200px", margin: "2.5em auto 0 auto" }}>
-            <hr />
+          <div style={{ width:"100%", maxWidth: "100%",display:"flex",textAlign:"center", justifyContent:"center", margin: "5% auto 5% auto" }}>
             <p>
               Adopter's Signature
               <br />
+              __________________
+              <br />
               (with name & date)
             </p>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-            <p>
-              Documents Attached:
-              <br />
-              Aadhaar Card of Adopter
-            </p>
-          </div>
-          <div style={{ marginTop: "40px", maxWidth: "200px", margin: "2.5em auto 0 auto" }}>
-            <hr />
-            <p>
+            <p style={{marginLeft:"10%"}}>
               Caretaker's Signature
               <br />
+              __________________
+              <br />
               (with name & date)
             </p>
           </div>
           <div style={{ marginTop: "40px", maxWidth: "200px", margin: "2.5em auto 0 auto" }}>
             <hr />
-            <p>
-              Counselor's Signature
-              <br />
-              (with name & date)
-            </p>
           </div>
-        </div>
-      </div>
 
       <button onClick={printPage} className="printButton">
         Print

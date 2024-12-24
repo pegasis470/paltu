@@ -13,6 +13,7 @@ const AdoptionForm = () => {
     hometype: "",
     address: "",
     occupation: "",
+    social:"",
     incamp:true
   });
   const [adopterImage, setAdopterImage] = useState(null);
@@ -53,6 +54,7 @@ const AdoptionForm = () => {
     formPayload.append("address", formData.address);
     formPayload.append("occupation", formData.occupation);
     formPayload.append("hometype", formData.hometype);
+    formPayload.append("social",formData.social)
     formPayload.append("incamp", formData.incamp ? "true" : "false");
     if (!adopterImage || !adopterDoc) {
       alert("Please upload both Adopter Image and Adopter Document.");
@@ -240,6 +242,22 @@ const AdoptionForm = () => {
             required
             style={styles.input}
           />
+
+          <label htmlFor="Social" style={styles.label}>
+          Instagram/Facebook ID:
+          </label>
+          <input
+            type="text"
+            id="social"
+            name="social"
+            placeholder="Instagram/Facebook ID"
+            value={formData.social}
+            onChange={handleInputChange}
+            required
+            style={styles.input}
+          />
+
+
           <label htmlFor="incamp" style={styles.label}>
             Are you currently in adoption camp 7.0?
           </label>

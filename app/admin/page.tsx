@@ -22,6 +22,7 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
   const [formData, setFormData] = useState({
+    councler: "",
     plans: "",
     pets: "",
     alone: "",
@@ -32,12 +33,11 @@ export default function AdminPage() {
       try {
         const queryParams = new URLSearchParams(window.location.search);
         const username = queryParams.get("username");
-  
         if (!username) {
           setMessage("Incorrect link username is invalid");
           return;
         }
-  
+        setFormData({ ...formData, councler: username })
         const response = await fetch(`https://adoption-backed.vercel.app/users/users/${username}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
@@ -107,7 +107,7 @@ export default function AdminPage() {
       }
 
       alert("Form submitted successfully!");
-      setFormData({ plans: "", pets: "", alone: "", temp_caretaker: "" }); // Reset form
+      setFormData({...formData, plans: "", pets: "", alone: "", temp_caretaker: "" }); // Reset form
       setSelectedApplication(null);
       window.location.reload();
     } catch (error) {
@@ -138,7 +138,7 @@ export default function AdminPage() {
       }
 
       alert("Form submitted successfully!");
-      setFormData({ plans: "", pets: "", alone: "", temp_caretaker: "" }); // Reset form
+      setFormData({...formData, plans: "", pets: "", alone: "", temp_caretaker: "" }); // Reset form
       setSelectedApplication(null);
       window.location.reload();
     } catch (error) {
