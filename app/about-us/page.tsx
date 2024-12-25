@@ -26,12 +26,19 @@ export default function AboutUs() {
             <Stack h={"100%"} justify="center" gap={"xl"}>
               <Group justify="center" wrap="wrap" gap={"lg"}>
                 <Box>
-                  <Title c={"white"} fz={{ base: "3rem", md: "4rem" }}>
+                  <Title c={"white"} fz={{ base: "30rem", md: "4rem" }}>
                     Who are
                   </Title>
+                  <Box style={{display:"flex"}}>
                   <Title c={"#fff500"} fz={{ base: "3rem", md: "6rem" }} mt={"-1rem"}>
                     We
                   </Title>
+                    <Image src={"/images/qustion.png"}
+                    width={"140"}
+                    height={"150"}
+                    alt="qusiton"
+                    />
+                    </Box>
                 </Box>
                 <Text c={"white"} fz={{ base: "0.75rem", sm: "1.15rem", md: "1.5rem" }} maw={"600px"}>
                   Team Animals With Humanity is a registered Non-governmental organization dedicated to rescuing, fostering, and rehoming the abandoned, sick, and injured animals around us. We also
@@ -52,8 +59,8 @@ export default function AboutUs() {
             </Stack>
           </Container>
         </Box>
-        <Box w={"100%"} h={"100vh"} pos={"relative"}>
-          {/* <Box w={"100%"} h={"100%"} pos={"absolute"} top={0} left={0} style={{ zIndex: -1 }}>
+        {/* <Box w={"100%"} h={"100vh"} pos={"relative"}>
+           <Box w={"100%"} h={"100%"} pos={"absolute"} top={0} left={0} style={{ zIndex: -1 }}>
             <Image
               src={"/images/team-2.jpg"}
               alt="Background"
@@ -64,7 +71,7 @@ export default function AboutUs() {
                 zIndex: -1, // Ensure the image is behind other content
               }}
             />
-          </Box> */}
+          </Box> 
           <Container h={"100%"} w={"100%"}>
             <Stack h={"100%"} justify="center" align="start">
               <Card bg={"blue.5"} p={"sm"} w={"fit-content"}>
@@ -115,7 +122,7 @@ export default function AboutUs() {
               </Stack>
             </Stack>
           </Container>
-        </Box>
+        </Box>*/}
         <Footer />
       </Stack>
     </>
