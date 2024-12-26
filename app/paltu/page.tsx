@@ -41,7 +41,7 @@ export default function AdoptAnimalPage() {
     // Detect mobile view
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768); // Set mobile breakpoint
+            setIsMobile(window.innerWidth <= 1000); // Set mobile breakpoint
         };
 
         handleResize(); // Check on initial render
@@ -158,7 +158,7 @@ export default function AdoptAnimalPage() {
                                         <div
                                             key={index}
                                             className="carousel-slide"
-                                            style={{
+                                            style={{ width:"100%",
                                                 backgroundImage: `url('${animal.photos}')`
                                             }}
                                         >
