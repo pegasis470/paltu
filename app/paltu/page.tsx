@@ -21,6 +21,8 @@ export default function AdoptAnimalPage() {
     });
     const [detailsFound, setDetailsFound] = useState(false);
 
+    const [isMobile, setIsMobile] = useState(false);
+
     // Define the Animal interface
     interface Animal {
         age: string;
@@ -36,6 +38,18 @@ export default function AdoptAnimalPage() {
         animal_type: string;
     }
 
+    // Detect mobile view
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768); // Set mobile breakpoint
+        };
+
+        handleResize(); // Check on initial render
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     // Fetch all animals
     useEffect(() => {
         const fetchAnimals = async () => {
@@ -48,16 +62,20 @@ export default function AdoptAnimalPage() {
                 const data = await response.json();
                 const filteredAnimals = data.filter((animal: Animal) => animal.avaliable);
 
-                // Group animals into slides of 4, or keep all in a single slide if total is less than 4
+                // Group animals into slides of 4 for desktop or 1 for mobile
                 const groupedAnimals =
-                    filteredAnimals.length <= 4 ? [filteredAnimals] : filteredAnimals.reduce((result:any, animal:any, index:any) => {
-                        const groupIndex = Math.floor(index / 4);
-                        if (!result[groupIndex]) {
-                            result[groupIndex] = [];
-                        }
-                        result[groupIndex].push(animal);
-                        return result;
-                    }, [] as Animal[][]);
+                    isMobile
+                        ? filteredAnimals.map((animal: Animal) => [animal])
+                        : filteredAnimals.length <= 4
+                            ? [filteredAnimals]
+                            : filteredAnimals.reduce((result: any, animal: any, index: any) => {
+                                const groupIndex = Math.floor(index / 4);
+                                if (!result[groupIndex]) {
+                                    result[groupIndex] = [];
+                                }
+                                result[groupIndex].push(animal);
+                                return result;
+                            }, [] as Animal[][]);
 
                 setAvailableAnimals(groupedAnimals);
             } catch (error) {
@@ -67,18 +85,19 @@ export default function AdoptAnimalPage() {
             }
         };
         fetchAnimals();
-    }, []);
+    }, [isMobile]);
+
     const Scroll = () => {
-      const windowHeight = document.documentElement.scrollHeight;
-      window.scrollTo({
-          top: windowHeight * 0.5,
-          behavior: 'smooth'
-      });
-  };
+        const windowHeight = document.documentElement.scrollHeight;
+        window.scrollTo({
+            top: windowHeight * 0.5,
+            behavior: 'smooth'
+        });
+    };
+
     // Fetch animal details by ID
     const fetchAnimalsByID = async (tag_id: number) => {
         try {
-
             const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tag_id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -103,88 +122,95 @@ export default function AdoptAnimalPage() {
     };
 
     return (
-      <>
-          {loading && (
-              <div id="loader">
-                  <video autoPlay muted loop playsInline id="bg-video">
-                      <source src="./images/bg.mp4" type="video/mp4" />
-                      <img src="BG.png" alt="Background" />
-                  </video>
-              </div>
-          )}
-          {!loading && (
-              <>
-              <div style={{marginTop: "-1%", width: "100%"}} > 
-                <img height={"120"} style={{marginLeft:"95%"}} src="/images/paltu logo.png" alt="" />
-              </div>
-                  <div id="main">
-                      <h1>Have a look at our Cuties....</h1>
-                      {availableAnimals.length > 0 ? (
-                          <div className="carousel-container">
-                              <button className="carousel-button left" onClick={prevSlide}>
-                                  ❮
-                              </button>
-                              <button className="carousel-button right" onClick={nextSlide}>
-                                  ❯
-                              </button>
-                              <div id="carousel-slides">
-                                  {availableAnimals[currentIndex].map((animal, index) => (
-                                      <div
-                                          key={index}
-                                          className="carousel-slide"
-                                          style={{
-                                              backgroundImage: `url('${animal.photos}')`
-                                          }}
-                                      >
-                                          <div className="carousel-overlay">
-                                              <h2>Tag ID: {animal.tag_id}</h2>
-                                              <p>Type: {animal.animal_type}</p>
-                                              <button
-                                                  className="details-button"
-                                                  onClick={() => fetchAnimalsByID(animal.tag_id)}
-                                              >
-                                                  Get Details
-                                              </button>
-                                          </div>
-                                      </div>
-                                  ))}
-                              </div>
-                          </div>
-                      ) : (
-                          <p>No available animals at the moment.</p>
-                      )}
-                  </div>
-                  {detailsFound && (
-                      <>
-                          <div className="animal-details-container">
-                              <img
-                                  src={`${animalDetails.photos}`}
-                                  alt="Animal"
-                                  className="animal-image"
-                              />
-                              <div className="animal-overlay">
-                                  <h2>Tag ID: {animalDetails.tag_id}</h2>
-                                  <p>Age: {animalDetails.age}</p>
-                                  <p>Type: {animalDetails.type}</p>
-                                  <p>Gender: {animalDetails.gender}</p>
-                                  <p>Fitness: {animalDetails.fitness}</p>
-                                  <p>Sterilisation: {animalDetails.sterilisation ? "yes" : "no"}</p>
-                                  <p>Vaccination: {animalDetails.vaccination ? "yes" : "no"}</p>
-                                  <p>Caretaker: {animalDetails.caretaker}</p>
-                              </div>
-                          </div>
-                          <button
-                              className="adopt-button"
-                              onClick={() =>
-                                  (window.location.href = `/paltu/adoptionform?tag_id=${animalDetails.tag_id}`)
-                              }
-                          >
-                              Adopt now
-                          </button>
-                      </>
-                  )}
-              </>
-          )}
-      </>
-  );
+        <>
+            {loading && (
+                <div id="loader">
+            {isMobile ? (
+                <video autoPlay muted loop playsInline id="bg-video-mobile">
+                    <source src="/images/bg-mobile.mp4" type="video/mp4" />
+                    <img src="BG-mobile.png" alt="Background Mobile" />
+                </video>
+            ) : (
+                <video autoPlay muted loop playsInline id="bg-video">
+                    <source src="./images/bg.mp4" type="video/mp4" />
+                    <img src="BG.png" alt="Background" />
+                </video>
+            )}
+            </div>
+            )}
+            {!loading && (
+                <>
+                    <div className='header' >
+                        <img height={"120"} style={{ marginLeft: "95%" }} src="/images/paltu logo.png" alt="" />
+                    </div>
+                    <div id="main">
+                        <h1>Have a look at our Cuties....</h1>
+                        {availableAnimals.length > 0 ? (
+                            <div className="carousel-container">
+                                <button className="carousel-button left" onClick={prevSlide}>
+                                    ❮
+                                </button>
+                                <button className="carousel-button right" onClick={nextSlide}>
+                                    ❯
+                                </button>
+                                <div id="carousel-slides">
+                                    {availableAnimals[currentIndex].map((animal, index) => (
+                                        <div
+                                            key={index}
+                                            className="carousel-slide"
+                                            style={{
+                                                backgroundImage: `url('${animal.photos}')`
+                                            }}
+                                        >
+                                            <div className="carousel-overlay">
+                                                <h2>Tag ID: {animal.tag_id}</h2>
+                                                <p>Type: {animal.animal_type}</p>
+                                                <button
+                                                    className="details-button"
+                                                    onClick={() => fetchAnimalsByID(animal.tag_id)}
+                                                >
+                                                    Get Details
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        ) : (
+                            <p>No available animals at the moment.</p>
+                        )}
+                    </div>
+                    {detailsFound && (
+                        <>
+                            <div className="animal-details-container">
+                                <img
+                                    src={`${animalDetails.photos}`}
+                                    alt="Animal"
+                                    className="animal-image"
+                                />
+                                <div className="animal-overlay">
+                                    <h2>Tag ID: {animalDetails.tag_id}</h2>
+                                    <p>Age: {animalDetails.age}</p>
+                                    <p>Type: {animalDetails.type}</p>
+                                    <p>Gender: {animalDetails.gender}</p>
+                                    <p>Fitness: {animalDetails.fitness}</p>
+                                    <p>Sterilisation: {animalDetails.sterilisation ? "yes" : "no"}</p>
+                                    <p>Vaccination: {animalDetails.vaccination ? "yes" : "no"}</p>
+                                    <p>Caretaker: {animalDetails.caretaker}</p>
+                                </div>
+                            </div>
+                            <button
+                                className="adopt-button"
+                                onClick={() =>
+                                    (window.location.href = `/paltu/adoptionform?tag_id=${animalDetails.tag_id}`)
+                                }
+                            >
+                                Adopt now
+                            </button>
+                        </>
+                    )}
+                </>
+            )}
+        </>
+    );
 }

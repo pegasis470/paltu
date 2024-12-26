@@ -8,6 +8,9 @@ body {
     align-items: center;
     background-color: #f69001; 
 }
+.header{ margin-top: -2%;
+         width: 100%;
+        }
 
 #main {
     position: relative;
@@ -211,4 +214,22 @@ body {
     transform: translate(-50%, -50%);
     z-index: -1;
     object-fit: cover;
+}
+@media (max-width: 768px) {
+    .carousel-slides {
+        width: 100%; /* Full width for mobile */
+        height: auto;
+        padding: 0; /* Adjust height as needed */
+    }
+    .carousel-slide {
+        width: 100%; /* Full width for mobile */
+        height: auto; /* Adjust height as needed */
+    }
+    .carousel-container {
+        margin-left: 0; /* Center container on mobile */
+    }
+    .header{
+        margin-top: -2%;
+        width: 60%;
+    }
 }

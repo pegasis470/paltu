@@ -246,6 +246,9 @@ const AdoptionForm = () => {
           <div style={{ marginTop: "40px", maxWidth: "200px", margin: "2.5em auto 0 auto" }}>
             <hr />
           </div>
+          <div className="page" >
+            <img src={data.Adoptor.adopter_doc} alt="" style={{display:"cover"}} />
+          </div>
 
       <button onClick={printPage} className="printButton">
         Print
