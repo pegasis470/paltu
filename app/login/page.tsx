@@ -26,7 +26,7 @@ export default function LoginPage() {
 
       const data = await response.json();
 
-      if (data.details === "loged in sucessfully") {
+      if (data.status === 1) {
         // Redirect to /admin with the username as a query parameter
         router.push(`/admin?username=${username}`);
       } else {
