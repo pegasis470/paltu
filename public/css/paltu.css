@@ -253,4 +253,51 @@ body {
     .header{
         margin-top: -2%;
         width: 60%;}
+    #main{
+        max-width: 100%;
+        padding: 0;
+        min-width: 100%;
+    }
+    
+    .animal-details-container {
+        position: relative;
+        width: 100%; /* Changed from 700px */
+        max-width: 100%; /* Changed from 700px */
+        margin: 0; /* Remove horizontal margin */
+        margin-top: 5%;
+        border-radius: 10px;
+    }
+
+    .animal-image {
+        width: 100%;
+        height: auto; /* Maintain aspect ratio */
+        object-fit: cover;
+    }
+
+    .animal-overlay {
+        position: absolute;
+        margin-top: 500px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        box-sizing: border-box;
+    }
+
+    /* Adjust text positioning for better mobile display */
+    .animal-overlay p {
+        margin-left: 5%; /* Reduced from 10% */
+    }
+
+    .animal-overlay h2 {
+        margin: 4%; /* Reduced from 7% */
+        font-size: 18px; /* Slightly smaller for mobile */
+    }
+
+    /* Center the adopt button */
+    .adopt-button {
+        display: block;
+        width: 90%;
+        margin: 20px auto;
+    }
 }

@@ -5,7 +5,8 @@ import '/public/css/paltu.css';
 export default function AdoptAnimalPage() {
     const [loading, setLoading] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [availableAnimals, setAvailableAnimals] = useState<Animal[][]>([]); // Grouped animals
+    const [isMobile, setIsMobile] = useState(false);
+    const [availableAnimals, setAvailableAnimals] = useState<Animal[][]>([]);
     const [animalDetails, setAnimalDetails] = useState<Animal>({
         age: "",
         type: "",
@@ -20,8 +21,6 @@ export default function AdoptAnimalPage() {
         animal_type: ""
     });
     const [detailsFound, setDetailsFound] = useState(false);
-
-    const [isMobile, setIsMobile] = useState(false);
 
     // Define the Animal interface
     interface Animal {
@@ -38,13 +37,13 @@ export default function AdoptAnimalPage() {
         animal_type: string;
     }
 
-    // Detect mobile view
+    // Detect mobile view and handle resize
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 1000); // Set mobile breakpoint
+            setIsMobile(window.innerWidth <= 1000);
         };
 
-        handleResize(); // Check on initial render
+        handleResize(); // Initial check
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
@@ -62,31 +61,59 @@ export default function AdoptAnimalPage() {
                 const data = await response.json();
                 const filteredAnimals = data.filter((animal: Animal) => animal.avaliable);
 
-                // Group animals into slides of 4 for desktop or 1 for mobile
-                const groupedAnimals =
-                    isMobile
-                        ? filteredAnimals.map((animal: Animal) => [animal])
-                        : filteredAnimals.length <= 4
-                            ? [filteredAnimals]
-                            : filteredAnimals.reduce((result: any, animal: any, index: any) => {
-                                const groupIndex = Math.floor(index / 4);
-                                if (!result[groupIndex]) {
-                                    result[groupIndex] = [];
-                                }
-                                result[groupIndex].push(animal);
-                                return result;
-                            }, [] as Animal[][]);
+                // Group animals based on device type
+                const groupedAnimals = isMobile
+                    ? filteredAnimals.map((animal: Animal) => [animal])
+                    : filteredAnimals.reduce((result: Animal[][], animal: Animal, index: number) => {
+                          if (index % 4 === 0) result.push([]);
+                          result[Math.floor(index / 4)].push(animal);
+                          return result;
+                      }, []);
 
                 setAvailableAnimals(groupedAnimals);
             } catch (error) {
                 console.error('Error fetching animals:', error);
             } finally {
-                setLoading(false);
+                // Add a slight delay to ensure loader video plays
+                setTimeout(() => {
+                    setLoading(false);
+                }, 2000);
             }
         };
         fetchAnimals();
     }, [isMobile]);
 
+    // Loader component with device-specific video
+    const LoaderComponent = () => (
+        <div id="loader">
+            {isMobile ? (
+                <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    id="bg-video"
+                    style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                >
+                    <source src="/images/bg-mobile.mp4" type="video/mp4" />
+                    <img src="/images/BG-mobile.png" alt="Mobile Background" />
+                </video>
+            ) : (
+                <video 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    id="bg-video"
+                >
+                    <source src="/images/bg.mp4" type="video/mp4" />
+                    <img src="/images/BG.png" alt="Desktop Background" />
+                </video>
+            )}
+        </div>
+    );
+
+    // Rest of your existing functions
     const Scroll = () => {
         const windowHeight = document.documentElement.scrollHeight;
         window.scrollTo({
@@ -95,7 +122,6 @@ export default function AdoptAnimalPage() {
         });
     };
 
-    // Fetch animal details by ID
     const fetchAnimalsByID = async (tag_id: number) => {
         try {
             const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tag_id}`);
@@ -111,36 +137,21 @@ export default function AdoptAnimalPage() {
         Scroll();
     };
 
-    // Display the next slide
     const nextSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % availableAnimals.length);
     };
 
-    // Display the previous slide
     const prevSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex - 1 + availableAnimals.length) % availableAnimals.length);
     };
 
     return (
         <>
-            {loading && (
-                <div id="loader">
-            {isMobile ? (
-                <video autoPlay muted loop playsInline id="bg-video-mobile">
-                    <source src="/images/bg-mobile.mp4" type="video/mp4" />
-                    <img src="BG-mobile.png" alt="Background Mobile" />
-                </video>
+            {loading ? (
+                <LoaderComponent />
             ) : (
-                <video autoPlay muted loop playsInline id="bg-video">
-                    <source src="./images/bg.mp4" type="video/mp4" />
-                    <img src="BG.png" alt="Background" />
-                </video>
-            )}
-            </div>
-            )}
-            {!loading && (
                 <>
-                    <div className='header' >
+                    <div className='header'>
                         <img height={"120"} style={{ marginLeft: "95%" }} src="/images/paltu logo.png" alt="" />
                     </div>
                     <div id="main">
@@ -158,7 +169,8 @@ export default function AdoptAnimalPage() {
                                         <div
                                             key={index}
                                             className="carousel-slide"
-                                            style={{ width:"100%",
+                                            style={{
+                                                width: "100%",
                                                 backgroundImage: `url('${animal.photos}')`
                                             }}
                                         >
