@@ -92,7 +92,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/approve?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app/form/approve?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
