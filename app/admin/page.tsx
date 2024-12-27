@@ -22,7 +22,7 @@ export default function AdminPage() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
   const [formData, setFormData] = useState({
-    councler: "",
+    councler_name: "",
     plans: "",
     pets: "",
     alone: "",
@@ -37,7 +37,7 @@ export default function AdminPage() {
           setMessage("Incorrect link username is invalid");
           return;
         }
-        setFormData({ ...formData, councler: username })
+        setFormData({ ...formData, councler_name: username })
         const response = await fetch(`https://adoption-backed.vercel.app/users/users/${username}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
@@ -92,7 +92,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `https://adoption-backed.vercel.app/form/approve?application_id=${selectedApplication.id}`,
+        `http://127.0.0.1:8000/form/approve?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
