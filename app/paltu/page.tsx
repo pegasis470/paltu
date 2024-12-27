@@ -54,7 +54,7 @@ export default function AdoptAnimalPage() {
         const fetchAnimals = async () => {
             setLoading(true);
             try {
-                const response = await fetch('https://adoption-backed.vercel.app/animals/animals/');
+                const response = await fetch('https://dae1-2401-4900-51c5-bdb8-eb1b-86c3-8ba8-8e66.ngrok-free.app/animals/animals/');
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -124,7 +124,7 @@ export default function AdoptAnimalPage() {
 
     const fetchAnimalsByID = async (tag_id: number) => {
         try {
-            const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tag_id}`);
+            const response = await fetch(`https://dae1-2401-4900-51c5-bdb8-eb1b-86c3-8ba8-8e66.ngrok-free.app/animals/animals/${tag_id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
