@@ -64,6 +64,7 @@ const AdoptionForm = () => {
     
     try {
       const response = await fetch("https://adoption-backed.vercel.app/applications/applications/", {
+        headers:{'ngrok-skip-browser-warning':'1'},
         method: "POST",
         body: formPayload,
       });
