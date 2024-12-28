@@ -264,14 +264,14 @@ export default function AdminPage() {
               {/* Additional Form */}
               <h3>Additional Information</h3>
               <div>
-                <label>Plans:</label>
+                <label>what are your plans for your pet if you go out of town ?</label>
                 <input
                   type="text"
                   value={formData.plans}
                   onChange={(e) => setFormData({ ...formData, plans: e.target.value })}
                   style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
-                <label>Pets:</label>
+                <label>have you had a pet before?</label>
                 <input
                   type="text"
                   value={formData.pets}
@@ -285,7 +285,7 @@ export default function AdminPage() {
                   onChange={(e) => setFormData({ ...formData, alone: e.target.value })}
                   style={{ display: "block", marginBottom: "10px", width: "100%" }}
                 />
-                <label>Temporary Caretaker:</label>
+                <label>who will take care of your pet if you go out temporarily?</label>
                 <input
                   type="text"
                   value={formData.temp_caretaker}
