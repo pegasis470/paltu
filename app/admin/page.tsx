@@ -73,7 +73,7 @@ export default function AdminPage() {
 
   const fetchApplicationDetails = async (applicationId: number) => {
     try {
-      const response = await fetch(`https://dae1-2401-4900-51c5-bdb8-eb1b-86c3-8ba8-8e66.ngrok-free.app/applications/applications/${applicationId}`);
+      const response = await fetch(`https://adoption-backed.vercel.app/applications/applications/${applicationId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch application details");
       }
