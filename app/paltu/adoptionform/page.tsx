@@ -152,8 +152,7 @@ const AdoptionForm = () => {
       <div style={styles.alert}>
       <h1>Form submitted successfully!</h1>
       <h2>Your form ID is {id}</h2>
-      <p>NOTE: please note your application id from tracking 
-      purpose it will not be displayed agian</p>
+      <p>NOTE: please note your application id from tracking purpose it will not be displayed agian</p>
       <a href="/paltu">CONTINUE...</a>
       </div>
       <div style={styles.formContainer}>
