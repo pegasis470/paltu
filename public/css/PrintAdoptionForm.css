@@ -61,8 +61,22 @@ p {
 }
 
 @media print {
+  .page-2 img {
+    display: block;
+    width: 100%; /* Ensures the image covers the width of the page */
+    height: calc(100vh - 32px); /* Adjusts height to fill the page minus padding */
+    object-fit: contain; /* Maintains aspect ratio and fills the container */
+    margin: 0 auto; /* Centers the image */
+  }
   .printButton {
     display: none;
+  }
+  .description {
+    page-break-inside: avoid; /* Avoid breaking the image section across pages */
+  }
+
+  .general-information {
+    page-break-before: always; /* Start a new page if necessary */
   }
 }
 
@@ -87,14 +101,16 @@ p {
 .description {
   text-align: left;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .image {
   width: 100%;
-  height: 100%;
-  display: flex;
+  height: auto;
+  display: block;
   justify-content: left;
   align-items: left;
+  margin-bottom: 20px;
 }
 
 .signature {

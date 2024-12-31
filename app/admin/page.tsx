@@ -18,9 +18,12 @@ interface Application {
 }
 
 export default function AdminPage() {
+  const router = useRouter();
   const [message, setMessage] = useState<string>("");
+  const [isVisible,setsearch]=useState(false)
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
+  const [approvedappid,setsearchid]=useState(null)
   const [formData, setFormData] = useState({
     councler_name: "",
     plans: "",
@@ -69,8 +72,20 @@ export default function AdminPage() {
   
     checkUserStatus();
   }, []);
-  
-
+  const search = ()=>{
+    router.push(`/admin/printForm?application_id=${approvedappid}`)
+  };
+  const handleInputChange = (event:any) => {
+    setsearchid(event.target.value); // Update state with input value
+};
+  const Showsearchbar=()=>{
+    if (!isVisible){
+    setsearch(true);
+    }
+    else{
+      setsearch(false);
+    }
+  }
   const fetchApplicationDetails = async (applicationId: number) => {
     try {
       const response = await fetch(`https://adoption-backed.vercel.app/applications/applications/${applicationId}`);
@@ -146,7 +161,6 @@ export default function AdminPage() {
       alert("Failed to submit form data");
     }
   };
-  const router = useRouter();
   const handleLogout = async () => {
     try {
       // Get the username from the URL query parameter
@@ -184,25 +198,40 @@ export default function AdminPage() {
       {message ? (
         <p>{message}</p>
       ) : (
-        <div >
-          <div style={{display:"flex"}}>
-          <h1>Applications</h1>
-          <button
-        onClick={handleLogout}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#ff6347",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-          fontSize: "16px"  
-          ,marginLeft:"80%"
-        }}
-      >
-        Logout
-      </button>
-      </div>
+        <div>
+          <div style={{ display: "flex" }}>
+            <h1>Applications</h1>
+            <button
+              onClick={handleLogout}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: "#ff6347",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                marginLeft: "65%"
+              }}
+            >
+              Logout
+            </button>
+            <button
+            onClick={Showsearchbar}
+            style={{
+              padding: "10px 20px",
+                backgroundColor: "#075791",
+                color: "#fff",
+                border: "none",
+                borderRadius: "5px",
+                cursor: "pointer",
+                fontSize: "16px",
+                marginLeft:"1%"
+            }}>
+              Search approved applications 
+            </button>
+          </div>
+          {isVisible && (<div style={{margin:"1%", display:"flex"}}>Enter form ID: <input onChange={handleInputChange}></input> <button style={{marginLeft:"1%", display:"flex",backgroundColor:"#075791",color:"#fff",fontSize:"16px",padding: "1px 2px"}} onClick={search}>Search</button></div>)}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
             {applications.map((app) => (
               <div
@@ -215,6 +244,7 @@ export default function AdminPage() {
                   width: "200px",
                   cursor: "pointer",
                   backgroundColor: "#f9f9f9",
+                  marginTop:"1%"
                 }}
               >
                 <h3>{app.name}</h3>
@@ -235,7 +265,7 @@ export default function AdminPage() {
               }}
             >
               <h2>Application Details</h2>
-              <h3 style={{backgroundColor:"black",color:"white",padding:"10px"}}>Adopter ID: {selectedApplication.id}</h3>
+              <h3 style={{ backgroundColor: "black", color: "white", padding: "10px" }}>Adopter ID: {selectedApplication.id}</h3>
               <p><strong>Name:</strong> {selectedApplication.name}</p>
               <p><strong>Occupation:</strong> {selectedApplication.occupation}</p>
               <p><strong>Animal ID:</strong> {selectedApplication.animal_id}</p>
@@ -245,21 +275,19 @@ export default function AdminPage() {
               <p><strong>Email:</strong> {selectedApplication.email || "N/A"}</p>
               <p><strong>Status:</strong> {selectedApplication.status}</p>
               <p><strong>Present in camp: {selectedApplication.incamp}</strong></p>
-              <div style={{display:"flex"}}>
-              <p style={{width:"50%"}}><strong>Adopter Image:</strong></p>
-              <p><strong>Adopter Document:</strong></p>
+              <div style={{ display: "flex" }}>
+                <p style={{ width: "50%" }}><strong>Adopter Image:</strong></p>
+                <p><strong>Adopter Document:</strong></p>
               </div>
-              <div style={{display:"flex"}}>
-              <img
-                src={selectedApplication.adopter_image}
-                alt="Adopter"
-                style={{ maxWidth: "100%", borderRadius: "8px", width:"50%" }}
-              />
-              <img
-                src={selectedApplication.adopter_doc}
-                alt="Adopter Document"
-                style={{ maxWidth: "100%", borderRadius: "8px",width:"50%" }}
-              />
+              <div style={{ display: "flex" }}>
+                <img
+                  src={selectedApplication.adopter_image}
+                  alt="Adopter"
+                  style={{ maxWidth: "100%", borderRadius: "8px", width: "50%" }} />
+                <img
+                  src={selectedApplication.adopter_doc}
+                  alt="Adopter Document"
+                  style={{ maxWidth: "100%", borderRadius: "8px", width: "50%" }} />
               </div>
               {/* Additional Form */}
               <h3>Additional Information</h3>
@@ -269,33 +297,29 @@ export default function AdminPage() {
                   type="text"
                   value={formData.plans}
                   onChange={(e) => setFormData({ ...formData, plans: e.target.value })}
-                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
-                />
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }} />
                 <label>have you had a pet before?</label>
                 <input
                   type="text"
                   value={formData.pets}
                   onChange={(e) => setFormData({ ...formData, pets: e.target.value })}
-                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
-                />
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }} />
                 <label>Alone:</label>
                 <input
                   type="text"
                   value={formData.alone}
                   onChange={(e) => setFormData({ ...formData, alone: e.target.value })}
-                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
-                />
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }} />
                 <label>who will take care of your pet if you go out temporarily?</label>
                 <input
                   type="text"
                   value={formData.temp_caretaker}
                   onChange={(e) => setFormData({ ...formData, temp_caretaker: e.target.value })}
-                  style={{ display: "block", marginBottom: "10px", width: "100%" }}
-                />
-                <button onClick={handleFormApprove} style={{backgroundColor:"green",color:"white",fontWeight:"bolder",padding:"5px", marginTop: "10px" }}>
+                  style={{ display: "block", marginBottom: "10px", width: "100%" }} />
+                <button onClick={handleFormApprove} style={{ backgroundColor: "green", color: "white", fontWeight: "bolder", padding: "5px", marginTop: "10px" }}>
                   Approve
                 </button>
-                <button onClick={handleFormDecline} style={{backgroundColor:"red",color:"white",fontWeight:"bolder",padding:"5px", marginTop: "10px", marginLeft:"10px" }}>
+                <button onClick={handleFormDecline} style={{ backgroundColor: "red", color: "white", fontWeight: "bolder", padding: "5px", marginTop: "10px", marginLeft: "10px" }}>
                   Decline
                 </button>
               </div>

@@ -88,7 +88,12 @@ const AdoptionForm = () => {
   }
 
   if (!data || !data.meta || !data.Animal || !data.Caretaker || !data.Adoptor ) {
-    return <div>Form data is incomplete or not found</div>;
+    return <div>Form data is incomplete</div>;
+  }
+  else{
+    if(!data.GenralInformation){
+      return <div>The form has not been approved</div>
+    }
   }
 
   return (
@@ -248,8 +253,8 @@ const AdoptionForm = () => {
           <div style={{ marginTop: "40px", maxWidth: "200px", margin: "2.5em auto 0 auto" }}>
             <hr />
           </div>
-          <div className="page" >
-            <img src={data.Adoptor.adopter_doc} alt="" style={{display:"cover"}} />
+          <div className="page-2" >
+            <img src={data.Adoptor.adopter_doc} alt="" />
           </div>
 
       <button onClick={printPage} className="printButton">
