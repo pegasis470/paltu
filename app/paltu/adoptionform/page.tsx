@@ -1,10 +1,28 @@
 'use client';
 import React, { useState } from "react";
 
+const LoaderComponent = () => (
+  <div id="loader">
+    <video 
+      autoPlay 
+      muted 
+      loop 
+      playsInline 
+      id="bg-video"
+      style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+    >
+      <source src="/images/bg.mp4" type="video/mp4" />
+      <img src="/images/BG.png" alt="Background" />
+    </video>
+  </div>
+);
+
 const AdoptionForm = () => {
   const[id,setid]=useState();
   const[showmsg,setmsg]=useState("none");
+  const [loading, setLoading] = useState(false);
   const[hideform,setform]=useState("block");
+  const [isMobile, setIsMobile] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -40,6 +58,7 @@ const AdoptionForm = () => {
   
   // Handle form submission
   const handleSubmit = async (e:any) => {
+    setLoading(true);
     e.preventDefault();
 
     const queryParams = new URLSearchParams(window.location.search);
@@ -74,16 +93,47 @@ const AdoptionForm = () => {
         setid(data.application_id);
         setmsg("block");
         setform("none");
+        setLoading(false);
       } else {
         const errorResponse = await response.json();
         alert(`Failed to submit form: ${errorResponse.detail}`);
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred while submitting the form.");
+      setLoading(false);
     }
   };
-  
+  const LoaderComponent = () => (
+    <div id="loader">
+        {isMobile ? (
+            <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                id="bg-video"
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+            >
+                <source src="/images/bg-mobile.mp4" type="video/mp4" />
+                <img src="/images/BG-mobile.png" alt="Mobile Background" />
+            </video>
+        ) : (
+            <video 
+                autoPlay 
+                muted 
+                loop 
+                playsInline 
+                id="bg-video"
+            >
+                <source src="/images/bg.mp4" type="video/mp4" />
+                <img src="/images/BG.png" alt="Desktop Background" />
+            </video>
+        )}
+    </div>
+);
+
   const styles = {
     body: {
       fontFamily: "Arial, sans-serif",
@@ -146,18 +196,23 @@ const AdoptionForm = () => {
     },
   };
   return (
-    <div style={styles.body}>
-      <img style={styles.imgRight} src="/top-right.png" alt="" />
-      <h1>Adoption Form</h1>
-      <div style={styles.alert}>
-      <h1>Form submitted successfully!</h1>
-      <h2>Your form ID is {id}</h2>
-      <p>NOTE: please note your application id from tracking purpose it will not be displayed agian</p>
-      <a href="/paltu">CONTINUE...</a>
-      </div>
-      <div style={styles.formContainer}>
-        <form onSubmit={handleSubmit}>
-          <label style={styles.label}>Please enter the following details -</label>
+    <>
+      {loading ? (
+        <LoaderComponent />
+      ) : (
+        <div style={styles.body}>
+          <img style={styles.imgRight} src="/top-right.png" alt="" />
+          <h1>Adoption Form</h1>
+          <div style={styles.alert}>
+            <h1>Form submitted successfully!</h1>
+            <h2>Your form ID is {id}</h2>
+            <p>NOTE: please note your application id for tracking purposes. It will not be displayed again.</p>
+            <a href="/paltu">CONTINUE...</a>
+          </div>
+          <div style={styles.formContainer}>
+            <form onSubmit={handleSubmit}>
+              {/* Form Inputs */}
+              <label style={styles.label}>Please enter the following details -</label>
           <br />
           <label htmlFor="name" style={styles.label}>
             Apka Naam:
@@ -311,11 +366,13 @@ const AdoptionForm = () => {
           </div>
 
           <button type="submit" style={styles.button}>
-            Submit
-          </button>
-        </form>
-      </div>
-    </div>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
