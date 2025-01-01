@@ -23,7 +23,8 @@ export default function AdminPage() {
   const [isVisible,setsearch]=useState(false)
   const [applications, setApplications] = useState<Application[]>([]);
   const [selectedApplication, setSelectedApplication] = useState<Application | null>(null);
-  const [approvedappid,setsearchid]=useState(null)
+  const [approvedappid,setsearchid]=useState(null);
+  const [allapprovedapp,setapprovedApplications]=useState<Application[]>([]);
   const [formData, setFormData] = useState({
     councler_name: "",
     plans: "",
@@ -78,8 +79,20 @@ export default function AdminPage() {
   const handleInputChange = (event:any) => {
     setsearchid(event.target.value); // Update state with input value
 };
-  const Showsearchbar=()=>{
+  const Showsearchbar= async ()=>{
     if (!isVisible){
+      const applicationsResponse = await fetch("https://adoption-backed.vercel.app/applications/applications/");
+          if (!applicationsResponse.ok) {
+            throw new Error("Failed to fetch applications");
+          }
+  
+          const applicationsData = await applicationsResponse.json();
+  
+          // Filter applications to show only those with status "Pending"
+          const pendingApplications = applicationsData.filter(
+            (application: { status: string }) => application.status === "Approved"
+          );
+          setapprovedApplications(pendingApplications);
     setsearch(true);
     }
     else{
@@ -231,7 +244,33 @@ export default function AdminPage() {
               Search approved applications 
             </button>
           </div>
-          {isVisible && (<div style={{margin:"1%", display:"flex"}}>Enter form ID: <input onChange={handleInputChange}></input> <button style={{marginLeft:"1%", display:"flex",backgroundColor:"#075791",color:"#fff",fontSize:"16px",padding: "1px 2px"}} onClick={search}>Search</button></div>)}
+          {isVisible && (<><div style={{ margin: "1%", display: "flex" }}>Enter form ID: <input onChange={handleInputChange}></input> <button style={{ marginLeft: "1%", display: "flex", backgroundColor: "#075791", color: "#fff", fontSize: "16px", padding: "1px 2px" }} onClick={search}>Search</button>
+            </div>
+            <div style={{display:"flex", overflow: "scroll"}}>
+                {allapprovedapp.map((app) => (
+                  <div
+                    key={app.id}
+                    onClick={() => fetchApplicationDetails(app.id)}
+                    style={{
+                      border: "1px solid #ccc",
+                      borderRadius: "8px",
+                      padding: "15px",
+                      width: "500px",
+                      cursor: "pointer",
+                      backgroundColor: "#f9f9f9",
+                      marginTop: "1%"
+                    }}
+                  >
+                    <h3>{app.name}</h3>
+                    <p>contact: {app.contact}</p>
+                    <p>Whatsapp: {app.whatsapp}</p>
+                    <p>Occupation: {app.occupation}</p>
+                    <p>Status: {app.status}</p>
+                  </div>
+                ))}
+              </div></>
+          
+          )}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
             {applications.map((app) => (
               <div
