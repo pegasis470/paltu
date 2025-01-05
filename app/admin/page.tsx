@@ -15,6 +15,8 @@ interface Application {
   adopter_doc: string;
   status: string;
   incamp: boolean;
+  caretaker:string;
+  caretaker_contact:string;
 }
 
 export default function AdminPage() {
@@ -314,6 +316,8 @@ export default function AdminPage() {
               <p><strong>Email:</strong> {selectedApplication.email || "N/A"}</p>
               <p><strong>Status:</strong> {selectedApplication.status}</p>
               <p><strong>Present in camp: {selectedApplication.incamp}</strong></p>
+              <p><strong>Caretaker details: {selectedApplication.caretaker}</strong></p>
+              <p><strong>Caretaker Contact: {selectedApplication.caretaker_contact}</strong></p>
               <div style={{ display: "flex" }}>
                 <p style={{ width: "50%" }}><strong>Adopter Image:</strong></p>
                 <p><strong>Adopter Document:</strong></p>
