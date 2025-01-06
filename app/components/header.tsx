@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const links = [
-  { link: "/", label: "Home" },
+  { link: "awhbharat.org", label: "Home" },
   { link: "/about-us", label: "About" },
 ];
 
