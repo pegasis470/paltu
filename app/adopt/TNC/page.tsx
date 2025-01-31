@@ -5,7 +5,7 @@ import "/public/css/PrintAdoptionForm.css";
 import { Center, List, Stack } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import imageCompression from "browser-image-compression";
-import LoaderComponent from "../components/LoaderComponent";
+import LoaderComponent from "../../components/LoaderComponent";
 
 const AdoptionFormWithTermsAndSignature = () => {
   const router = useRouter();
@@ -71,7 +71,7 @@ const AdoptionFormWithTermsAndSignature = () => {
       formData.append("application_id", applicationId);
       formData.append("user", "adoptor");
   
-      const response = await fetch("http://127.0.0.1:8000/form/sign", {
+      const response = await fetch("https://adoption-backed.vercel.app/form/sign", {
         method: "POST",
         body: formData,
       });

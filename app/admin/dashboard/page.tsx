@@ -94,7 +94,7 @@ export default function AdminPage() {
           return;
         }
         setFormData({ ...formData, councler_name: username })
-        const response = await fetch(`http://127.0.0.1:8000/users/users/${username}`);
+        const response = await fetch(`https://adoption-backed.vercel.app/users/users/${username}`);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
@@ -107,7 +107,7 @@ export default function AdminPage() {
         const userData = await response.json();
   
         if (userData.status === "Online" && userData.auth_token === auth_token  ) {
-          const applicationsResponse = await fetch("http://127.0.0.1:8000/applications/applications/");
+          const applicationsResponse = await fetch("https://adoption-backed.vercel.app/applications/applications/");
           if (!applicationsResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -119,7 +119,7 @@ export default function AdminPage() {
             (application: { status: string }) => application.status === "Pending"
           );
           setApplications(pendingApplications);
-          const caretakersResponse = await fetch("http://127.0.0.1:8000/caretaker/caretaker/");
+          const caretakersResponse = await fetch("https://adoption-backed.vercel.app/caretaker/caretaker/");
           if (!caretakersResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -148,7 +148,7 @@ export default function AdminPage() {
 };
   const Showsearchbar= async ()=>{
     if (!isVisible){
-      const applicationsResponse = await fetch("http://127.0.0.1:8000/applications/applications/");
+      const applicationsResponse = await fetch("https://adoption-backed.vercel.app/applications/applications/");
           if (!applicationsResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -168,7 +168,7 @@ export default function AdminPage() {
   }
   const fetchApplicationDetails = async (applicationId: number) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/applications/applications/${applicationId}`);
+      const response = await fetch(`https://adoption-backed.vercel.app/applications/applications/${applicationId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch application details");
       }
@@ -182,7 +182,7 @@ export default function AdminPage() {
   };
   const fetchCaretakerDetails = async (caretakerId: number) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/caretaker/caretaker/${caretakerId}`);
+      const response = await fetch(`https://adoption-backed.vercel.app/caretaker/caretaker/${caretakerId}`);
       if (!response.ok) {
         throw new Error("Failed to fetch application details");
       }
@@ -199,7 +199,7 @@ export default function AdminPage() {
   }
   const ShowCaretakers= async ()=>{
     if (!iscaretakerVisible){
-      const caretakerResponse = await fetch("http://127.0.0.1:8000/caretaker/caretaker");
+      const caretakerResponse = await fetch("https://adoption-backed.vercel.app/caretaker/caretaker");
           if (!caretakerResponse.ok) {
             throw new Error("Failed to fetch applications");
           }
@@ -226,7 +226,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/approve?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app/form/approve?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -258,7 +258,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/caretaker/approve?id=${selectedcaretaker.id}`,
+        `https://adoption-backed.vercel.app/caretaker/approve?id=${selectedcaretaker.id}`,
         {
           method: "PUT",
           headers: {
@@ -287,7 +287,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/caretaker/blacklist?id=${selectedcaretaker.id}`,
+        `https://adoption-backed.vercel.app/caretaker/blacklist?id=${selectedcaretaker.id}`,
         {
           method: "PUT",
           headers: {
@@ -316,7 +316,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/decline?application_id=${selectedApplication.id}`,
+        `https://adoption-backed.vercel.app/form/decline?application_id=${selectedApplication.id}`,
         {
           method: "POST",
           headers: {
@@ -347,7 +347,7 @@ export default function AdminPage() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/form/cancle?application_id=${selectedApplication.id}&remarks=${remark}`,
+        `https://adoption-backed.vercel.app/form/cancle?application_id=${selectedApplication.id}&remarks=${remark}`,
         {
           method: "POST",
           headers: {
@@ -382,7 +382,7 @@ export default function AdminPage() {
       }
 
       // Send logout request
-      const response = await fetch(`http://127.0.0.1:8000/users/users/logout?user=${username}`, {
+      const response = await fetch(`https://adoption-backed.vercel.app/users/users/logout?user=${username}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",

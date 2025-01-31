@@ -24,7 +24,7 @@ export default function CaretakerLoginPage() {
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://127.0.0.1:8000/caretaker/login', {
+            const response = await fetch('https://adoption-backed.vercel.app/caretaker/login', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

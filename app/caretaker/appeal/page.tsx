@@ -89,7 +89,7 @@ export default function AppealsPage() {
             }
     
             try {
-                const response = await fetch('http://127.0.0.1:8000/animals/animals/', {
+                const response = await fetch('https://adoption-backed.vercel.app/animals/animals/', {
                     method: 'POST',
                     body: formPayload,
                 });

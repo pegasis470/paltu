@@ -56,7 +56,7 @@ export default function AdoptAnimalPage() {
         const fetchAnimals = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://127.0.0.1:8000/animals/animals/', {
+                const response = await fetch('https://adoption-backed.vercel.app/animals/animals/', {
                     headers: { 'ngrok-skip-browser-warning': '1' },
                 });
                 if (!response.ok) {
@@ -119,7 +119,7 @@ export default function AdoptAnimalPage() {
 
     const fetchAnimalsByID = async (tag_id: string) => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/animals/animals/${tag_id}`);
+            const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tag_id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }

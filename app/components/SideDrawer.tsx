@@ -160,7 +160,7 @@ export default function SideDrawer({uselight=false}) {
 
   const fetchCaretakerDetails = async (id: string, auth_token: string) => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/caretaker/caretaker/${id}`, {
+      const response = await fetch(`https://adoption-backed.vercel.app/caretaker/caretaker/${id}`, {
         headers: {
           Authorization: `Bearer ${auth_token}`,
         },
@@ -189,7 +189,7 @@ export default function SideDrawer({uselight=false}) {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/caretaker/logout?id=${id}`, {
+      const response = await fetch(`https://adoption-backed.vercel.app/caretaker/logout?id=${id}`, {
         method: "PUT",
         headers: {
           Accept: "application/json",

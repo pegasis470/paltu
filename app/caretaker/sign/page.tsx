@@ -71,7 +71,7 @@ const CaretakerFormWithTermsAndSignature = () => {
       formData.append("sign", compressedSignature);
       formData.append("id", applicationId);
   
-      const response = await fetch("http://127.0.0.1:8000/caretaker/sign", {
+      const response = await fetch("https://adoption-backed.vercel.app/caretaker/sign", {
         method: "POST",
         body: formData,
       });

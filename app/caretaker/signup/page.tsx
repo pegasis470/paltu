@@ -97,7 +97,7 @@ export default function CaretakerSignupPage() {
     formPayload.append("address", fullAddress);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/caretaker/caretaker/", {
+      const response = await fetch("https://adoption-backed.vercel.app/caretaker/caretaker/", {
         method: "POST",
         body: formPayload,
       });

@@ -30,7 +30,7 @@ function CaretakerDetails() {
         try {
     
           // Send logout request
-          const response = await fetch(`http://127.0.0.1:8000/caretaker/logout?id=${id}`, {
+          const response = await fetch(`https://adoption-backed.vercel.app/caretaker/logout?id=${id}`, {
             method: "PUT",
             headers: {
               Accept: "application/json",
@@ -62,7 +62,7 @@ function CaretakerDetails() {
             }
 
             try {
-                const response = await fetch(`http://127.0.0.1:8000/caretaker/caretaker/${id}`);
+                const response = await fetch(`https://adoption-backed.vercel.app/caretaker/caretaker/${id}`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.status === 'Online' && data.auth_token === auth_token ) {

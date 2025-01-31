@@ -40,11 +40,11 @@ function AnimalDashboard() {
                 return;
             }
             try {
-                const response = await fetch(`http://127.0.0.1:8000/animals/animals/${tagId}`);
+                const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tagId}`);
                 if (response.ok) {
                     const animal = await response.json();
                     try {
-                        const response = await fetch(`http://127.0.0.1:8000/caretaker/caretaker/${animal.caretaker_id}`);
+                        const response = await fetch(`https://adoption-backed.vercel.app/caretaker/caretaker/${animal.caretaker_id}`);
                         if (response.ok) {
                             const data = await response.json();
                             if (data.status === 'Online' && data.auth_token === auth_token ) {
@@ -106,7 +106,7 @@ function AnimalDashboard() {
         setMessage(''); // Clear previous messages
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/animals/animals/${tagId}`, {
+            const response = await fetch(`https://adoption-backed.vercel.app/animals/animals/${tagId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
