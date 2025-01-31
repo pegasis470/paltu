@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Cookies from 'js-cookie';
+
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -8,11 +10,12 @@ export default function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://adoption-backed.vercel.app/users/users/login", {
+      const response = await fetch("http://127.0.0.1:8000/users/users/login", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -28,7 +31,8 @@ export default function LoginPage() {
 
       if (data.status === 1) {
         // Redirect to /admin with the username as a query parameter
-        router.push(`/admin?username=${username}`);
+        Cookies.set('auth_token',data.auth_token);
+        router.push(`/admin/dashboard?username=${username}`);
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }

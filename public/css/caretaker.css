@@ -1,0 +1,38 @@
+#main{
+    background-color: #f69001;
+    height: 100%;
+    width: 100%;
+}
+.header img{
+    width: 10%;
+    height:auto;
+    margin-top:1.5%;
+    margin-left: 2%;
+}
+.center{
+    display: flex;
+    text-align: right;
+    margin-left: 40%;
+    font-family: MoreSugar;
+    color: #ffe58c;
+}
+.center h1{
+    font-size: 300%;
+}
+#login{
+    background-color: #fff9f2;
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 3%;
+    padding-right: 30%;
+    border-radius: 10%;
+    margin-left: 1%;
+}
+#login input{
+    background-color: #f69001;
+    border: none;
+    margin-bottom: 10%;
+    border-radius: 0 20px 20px 0 ;
+    font-size: 150%;
+    color: #000;
+}

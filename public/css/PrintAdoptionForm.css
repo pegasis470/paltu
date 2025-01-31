@@ -61,12 +61,8 @@ p {
 }
 
 @media print {
-  .page-2 img {
-    display: block;
-    width: 100%; /* Ensures the image covers the width of the page */
-    height: calc(100vh - 32px); /* Adjusts height to fill the page minus padding */
-    object-fit: contain; /* Maintains aspect ratio and fills the container */
-    margin: 0 auto; /* Centers the image */
+  .page-2{
+    page-break-before: always;
   }
   .printButton {
     display: none;

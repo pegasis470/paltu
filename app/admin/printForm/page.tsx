@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "/public/css/PrintAdoptionForm.css";
 import { Center, List, Loader, Stack } from "@mantine/core";
+import { title } from "process";
 
 interface FormData {
   meta: {
@@ -33,13 +34,14 @@ interface FormData {
     contact: string;
     whatsapp: string;
     address: string;
+    address_permanent:string;
     pets: boolean;
     home_type: string;
     adopter_image: string;
-    adopter_doc: string;
-    aloneTime: string;
-    caretakerDuringTravel: string;
-    relocationPlans: string;
+    adopter_doc_front: string;
+    adopter_doc_back: string;
+    status:string;
+    remarks:string
   };
   GenralInformation:{
     councler:string;
@@ -47,26 +49,44 @@ interface FormData {
     alone:string;
     temp_caretaker:string;
     plans:string
+    adoptor_signeture:string
+    caretaker_signeture:string
   }
 }
 
 const AdoptionForm = () => {
   const [data, setData] = useState<FormData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const searchParams = new URLSearchParams(window.location.search);
       const applicationId = searchParams.get("application_id");
-
+      const title=`Form ${applicationId}`;
+      document.title = title;
       try {
-        const response = await fetch(`https://adoption-backed.vercel.app/form/form?application_id=${applicationId}`,{
-          headers:{'ngrok-skip-browser-warning':'1'} 
-      });
-        const result = await response.json();
-        setData(result);
+        const response = await fetch(
+          `http://127.0.0.1:8000/form/form?application_id=${applicationId}`,
+          {
+            headers: { 'ngrok-skip-browser-warning': '1' },
+          }
+        );
+
+        if (response.ok) {
+          const result = await response.json();
+          setData(result);
+        } else {
+          const errorResult = await response.json();
+          if (errorResult.detail) {
+            setErrorMessage(errorResult.detail);
+          } else {
+            setErrorMessage('Failed to fetch form data.');
+          }
+        }
       } catch (error) {
         console.error("Error fetching form data:", error);
+        setErrorMessage("An unexpected error occurred while fetching form data.");
       } finally {
         setLoading(false);
       }
@@ -87,22 +107,27 @@ const AdoptionForm = () => {
     );
   }
 
-  if (!data || !data.meta || !data.Animal || !data.Caretaker || !data.Adoptor ) {
-    return <div>Form data is incomplete</div>;
+  if (errorMessage) {
+    return <div style={{alignItems:'center',textAlign:'center'}}><h1 style={{color:'red'}}>{errorMessage}</h1></div>;
   }
-  else{
-    if(!data.GenralInformation){
-      return <div>The form has not been approved</div>
+
+  if (!data || !data.meta || !data.Animal || !data.Caretaker || !data.Adoptor) {
+    return <div>Form data is incomplete</div>;
+  } else {
+    if (!data.GenralInformation) {
+      return <div>The form has not been approved</div>;
     }
   }
 
-  return (
+  return (    
       <div className="page">
         <p>Serial Number: {data.meta?.id || 'N/A'}</p>
         <div className="logoContainer">
           <img src="/images/AWH-logo.png" alt="AWH Logo" width="200" />
         </div>
         <h1 className="title">ADOPTION & CONSENT FORM</h1>
+        {(data.Adoptor.status=="Cancled")? <><h1 style={{color:'red',alignItems:'center',textAlign:'center'}}>FORM CANCLED</h1><h3 style={{color:'red',alignItems:'center',textAlign:'center'}}>{data.Adoptor.remarks}</h3></>:<p></p>}
+        {(data.Adoptor.status=="Denied")? <h1 style={{color:'red',alignItems:'center',textAlign:'center'}}>FORM DECLINED</h1>:<p></p>}
         <div className="grid-2 form-1" style={{display:"flex",width:"100%"}}>
           <p>Date: _______________</p> <p style={{marginLeft:"50%"}}>Name of Counselor: {data.GenralInformation.councler}</p>
         </div>
@@ -148,7 +173,8 @@ const AdoptionForm = () => {
               <p>Contact No.: {data.Adoptor?.contact || 'N/A'}</p>
               <p>WhatsApp No.: {data.Adoptor?.whatsapp || 'N/A'}</p>
               <p>Home Type: {data.Adoptor?.home_type || 'N/A'}</p>
-              <p>Permanent Residence: {data.Adoptor?.address || 'N/A'}</p>
+              <p>Local Residence: {data.Adoptor?.address || 'N/A'}</p>
+              <p>Permanent Residence: {data.Adoptor?.address_permanent || 'N/A'}</p>
             </div>
             <div className="image">
               <div>
@@ -238,14 +264,22 @@ const AdoptionForm = () => {
             <p>
               Adopter's Signature
               <br />
-              __________________
+              <img
+                src={data.GenralInformation.adoptor_signeture}
+                alt="Adopter's Signature"
+                style={{ maxWidth: "200px", maxHeight: "100px", border: "1px solid #ccc", marginTop: "10px" }}
+              />
               <br />
               (with name & date)
             </p>
             <p style={{marginLeft:"10%"}}>
               Caretaker's Signature
               <br />
-              __________________
+              <img
+                src={data.GenralInformation.caretaker_signeture}
+                alt="Caretaker's Signature"
+                style={{ maxWidth: "200px", maxHeight: "100px", border: "1px solid #ccc", marginTop: "10px" }}
+              />
               <br />
               (with name & date)
             </p>
@@ -254,7 +288,11 @@ const AdoptionForm = () => {
             <hr />
           </div>
           <div className="page-2" >
-            <img src={data.Adoptor.adopter_doc} alt="" />
+            <div style={{position:"relative",width:"100%",height:"auto"}}>
+            <img style={{width:"70%",height:"auto",display:"block"}} src={data.Adoptor.adopter_doc_front} alt="" />
+            <img style={{width:"70%",height:"auto",display:"block"}} src={data.Adoptor.adopter_doc_back} alt="" />
+            <img style={{position:"absolute",pointerEvents:"none",top:"70%",left:"50%"}} src={data.GenralInformation.adoptor_signeture} />
+            </div>
           </div>
 
       <button onClick={printPage} className="printButton">

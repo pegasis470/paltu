@@ -1,0 +1,171 @@
+.signup-container {
+    min-height: 100vh;
+    background-color: #f69001;
+    display: flex;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .header-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .logo {
+    height: 4rem;
+  }
+  
+  .main-container {
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    max-width: 1200px;
+  }
+  
+  .form-card {
+    background-color: white;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    max-width: 42rem;
+    margin: 0 auto;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .progress-bar {
+    margin-bottom: 1.5rem;
+  }
+  
+  .progress-track {
+    height: 0.5rem;
+    background-color: #fed7aa;
+    border-radius: 9999px;
+  }
+  
+  .progress-fill {
+    height: 0.5rem;
+    background-color: #f69001;
+    border-radius: 9999px;
+    transition: width 300ms;
+  }
+  
+  .form-content {
+    margin-bottom: 2rem;
+  }
+  
+  .question-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1rem;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.125rem;
+    border: 2px solid #fed7aa;
+    border-radius: 0.75rem;
+    transition: border-color 200ms;
+  }
+  
+  .input-field:focus {
+    border-color: #f69001;
+    outline: none;
+  }
+  
+  .file-upload {
+    margin-bottom: 2rem;
+  }
+  
+  .file-label {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .file-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #fed7aa;
+    border-radius: 0.75rem;
+  }
+  
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .back-button {
+    padding: 0.75rem 1.5rem;
+    color: #f69001;
+    border: 2px solid #f69001;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 200ms;
+  }
+  
+  .back-button:hover {
+    background-color: #fff7ed;
+  }
+  
+  .next-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    background-color: #f69001;
+    color: white;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: background-color 200ms;
+  }
+  
+  .next-button:hover {
+    background-color: #ea580c;
+  }
+  
+  .terms-container {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .terms-checkbox {
+    height: 1rem;
+    width: 1rem;
+    accent-color: #f69001;
+  }
+  
+  .terms-label {
+    color: #4b5563;
+  }
+  
+  .error-message {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #fef2f2;
+    color: #ef4444;
+    border-radius: 0.75rem;
+  }
+  
+  .side-text {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 28rem;
+  }
+  
+  .side-text-content {
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: white;
+    line-height: 1.2;
+  }
