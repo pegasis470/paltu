@@ -147,7 +147,7 @@ export default function SideDrawer({uselight=false}) {
     const auth_token = Cookies.get("auth_token");
     const caretaker_id = Cookies.get("caretaker_id");
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 800);
     };
     
     checkMobile();

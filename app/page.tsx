@@ -8,7 +8,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 800);
     };
     
     checkMobile();
