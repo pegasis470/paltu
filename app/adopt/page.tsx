@@ -209,7 +209,7 @@ export default function AdoptAnimalPage() {
                             <button
                                 className="adopt-button"
                                 onClick={() =>
-                                    (window.location.href = `/adoptionform?tag_id=${animalDetails.tag_id}`)
+                                    (window.location.href = `/adopt/adoptionform?tag_id=${animalDetails.tag_id}`)
                                 }
                             >
                                 Adopt now
